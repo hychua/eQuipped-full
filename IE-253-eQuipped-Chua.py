@@ -22,11 +22,11 @@ from dash.exceptions import PreventUpdate
 
 def querydatafromdatabase(sql, values,dbcolumns):
     db = psycopg2.connect(
-        user="oxsytcfmwxvalp",
-        password="1929ee03b003ed7c89f834050e9268c3f8d810d5fbe26ee172d598bbd09dcc64",
-        host="ec2-34-230-115-172.compute-1.amazonaws.com",
+        user="zqvziszzrkkqut",
+        password="a3c11acd5681142f297cab2e0da37e5ba273f15a90b8ea4485fbcfb7c2774dfa",
+        host="ec2-34-232-191-133.compute-1.amazonaws.com",
         port=5432,
-        database="d1peedapsfk334")
+        database="dd6pb7ecn5jjlm")
     cur = db.cursor()
     cur.execute(sql, values)
     rows = pd.DataFrame(cur.fetchall(), columns=dbcolumns)
@@ -35,11 +35,11 @@ def querydatafromdatabase(sql, values,dbcolumns):
 
 def modifydatabase(sqlcommand, values):
     db = psycopg2.connect(
-        user="oxsytcfmwxvalp",
-        password="1929ee03b003ed7c89f834050e9268c3f8d810d5fbe26ee172d598bbd09dcc64",
-        host="ec2-34-230-115-172.compute-1.amazonaws.com",
+        user="zqvziszzrkkqut",
+        password="a3c11acd5681142f297cab2e0da37e5ba273f15a90b8ea4485fbcfb7c2774dfa",
+        host="ec2-34-232-191-133.compute-1.amazonaws.com",
         port=5432,
-        database="d1peedapsfk334")
+        database="dd6pb7ecn5jjlm")
     cursor = db.cursor()
     cursor.execute(sqlcommand, values)
     db.commit()
