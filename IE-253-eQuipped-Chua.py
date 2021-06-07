@@ -405,7 +405,7 @@ notification_page = html.Div([
                     html.Label('Equipment:',
                       style={'font-weight':'bold','font-size':18}),
                     html.Br(),html.Br(),
-                    html.Label('Requester:',
+                    html.Label('Requestor:',
                       style={'font-weight':'bold','font-size':18}),
                     html.Br(),html.Br(),html.Br(),
                     html.Button(
@@ -433,7 +433,7 @@ notification_page = html.Div([
                                           {'label':'Low', 'value':'Low'}],
                               style={'width':200}),
                     html.Br(),
-                    dcc.Input(id='notif-date',value='Date', type='date',
+                    dcc.Input(id='notif-date', type='date',
                               style={'width':200}),
                     html.Br(),html.Br(),
                     dcc.Dropdown(
@@ -441,11 +441,10 @@ notification_page = html.Div([
                         options=[{'label':n, 'value':n} for n in name3],
                         style={'width':200},
                     ),
-                    html.Br(),html.Br(),
+                    html.Br(),
                     dcc.Dropdown(
                         id='notif-user',
                         options=[{'label':n, 'value':n} for n in name2],
-			value=name2[0],
                         style={'width':200},
                     ),
                     html.Br(),html.Br(),
@@ -562,7 +561,7 @@ order_page = html.Div([
                          
                 
                 html.Div([
-                    dcc.Input(id='order-name',value='Maintenance Order', type='text',
+                    dcc.Input(id='order-name', type='text',
                               style={'width':200}),
                     html.Br(),html.Br(),
                     dcc.Dropdown(id='order-type',value='Corrective',
@@ -571,7 +570,7 @@ order_page = html.Div([
                                           {'label':'Preventive', 'value':'Preventive'}],
                               style={'width':200}),
                     html.Br(),
-                    dcc.Input(id='order-date',value='Date', type='date',
+                    dcc.Input(id='order-date', type='date',
                               style={'width':200}),
                     html.Br(),html.Br(),
                     dcc.Input(id='order-hours',value=0, type='number',
@@ -706,18 +705,17 @@ user_page = html.Div([
                          
                 
                 html.Div([
-                    dcc.Input(id='user-name',value='John Doe', type='text',
-                              style={'width':120}),
+                    dcc.Input(id='user-name', type='text',
+                              style={'width':200}),
                     html.Br(),html.Br(),
                     dcc.Input(id='user-date',value='Date', type='date',
-                              style={'width':120}),
+                              style={'width':200}),
                     html.Br(),html.Br(),
                     dcc.Dropdown(id='user-dept',
                               options=[{'label':n, 'value':n} for n in name5],
-                              value=name5[0],
-                              style={'width':120}),
-                    html.Br(),html.Br(),
-                    dcc.Dropdown(id='user-type',value='Admin',
+                              style={'width':200}),
+                    html.Br(),
+                    dcc.Dropdown(id='user-type',
                                  options=[{'label':'Admin', 'value':'Admin'},
                                           {'label':'Operator', 'value':'Operator'},
                                           {'label':'Technician', 'value':'Technician'}],
