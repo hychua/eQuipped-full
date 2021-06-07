@@ -363,7 +363,10 @@ registration_page = html.Div([
                     ],
         style={'display':'inline-block','float':'left'}),
 
-    html.Div([dcc.Dropdown(
+    html.Div([
+        html.H3('Search:',
+                style={'color':'rgb(0,123,255)','font-family':'avenir'}),
+        dcc.Dropdown(
                         id='login-dropdown',
                         options=[{'label':n, 'value':n} for n in name],
                         style={},
@@ -494,6 +497,8 @@ notification_page = html.Div([
         
 
     html.Div([
+        html.H3('Search:',
+                style={'color':'rgb(0,123,255)','font-family':'avenir'}),
         dcc.Dropdown(
                         id='notif-dropdown',
                         options=[{'label':n, 'value':n} for n in name0],
@@ -648,6 +653,8 @@ order_page = html.Div([
     ], style={'float':'left','display':'inline-block'}),
 
     html.Div([
+        html.H3('Search:',
+                style={'color':'rgb(0,123,255)','font-family':'avenir'}),
         dcc.Dropdown(
                         id='order-dropdown',
                         options=[{'label':n, 'value':n} for n in name1],
@@ -772,6 +779,8 @@ user_page = html.Div([
 ], style={'float':'left','display':'inline-block'}),
          
              html.Div([
+                 html.H3('Search:',
+                style={'color':'rgb(0,123,255)','font-family':'avenir'}),
                  dcc.Dropdown(
                         id='user-dropdown',
                         options=[{'label':n, 'value':n} for n in name2],
@@ -902,6 +911,8 @@ equipment_page = html.Div([
             ], style={'float':'left','display':'inline-block'}),
 
     html.Div([
+        html.H3('Search:',
+                style={'color':'rgb(0,123,255)','font-family':'avenir'}),
         dcc.Dropdown(
                         id='equi-dropdown',
                         clearable=False,
@@ -996,7 +1007,10 @@ damage_page = html.Div([
                     ],
         style={'display':'inline-block','float':'left'}),
 
-    html.Div([dcc.Dropdown(
+    html.Div([
+        html.H3('Search:',
+                style={'color':'rgb(0,123,255)','font-family':'avenir'}),
+        dcc.Dropdown(
                         id='damage-dropdown',
                         options=[{'label':n, 'value':n} for n in name4],
                         style={},
@@ -1083,7 +1097,10 @@ location_page = html.Div([
                     ],
         style={'display':'inline-block','float':'left'}),
 
-    html.Div([dcc.Dropdown(
+    html.Div([
+        html.H3('Search:',
+                style={'color':'rgb(0,123,255)','font-family':'avenir'}),
+        dcc.Dropdown(
                         id='loc-dropdown',
                         options=[{'label':n, 'value':n} for n in name5],
                         style={},
