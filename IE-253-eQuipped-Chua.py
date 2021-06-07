@@ -423,7 +423,7 @@ notification_page = html.Div([
                          
                 
                 html.Div([
-                    dcc.Input(id='notif-name',value='Notification', type='text',
+                    dcc.Input(id='notif-name', type='text',
                               style={'width':200}),
                     html.Br(),html.Br(),
                     dcc.Dropdown(id='notif-priority',value='Low',
@@ -720,7 +720,7 @@ user_page = html.Div([
                                           {'label':'Operator', 'value':'Operator'},
                                           {'label':'Technician', 'value':'Technician'}],
                               style={'width':200}),
-                    html.Br(),
+                    html.Br(),html.Br(),
                     dcc.Dropdown(
                         id='user-login',
                         options=[{'label':n, 'value':n} for n in name],
@@ -954,7 +954,7 @@ damage_page = html.Div([
                          
                 
                 html.Div([
-                    dcc.Input(id='damage-name',value='Overheating', type='text',
+                    dcc.Input(id='damage-name', type='text',
                               style={'width':200}),
                     
                     html.Div([html.Br(),
@@ -1041,7 +1041,7 @@ location_page = html.Div([
                          
                 
                 html.Div([
-                    dcc.Input(id='loc-name',value='Stainless Steel Line 01', type='text',
+                    dcc.Input(id='loc-name', type='text',
                               style={'width':200}),
                     
                     html.Div([html.Br(),
