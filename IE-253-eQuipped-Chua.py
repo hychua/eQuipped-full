@@ -445,6 +445,7 @@ notification_page = html.Div([
                     dcc.Dropdown(
                         id='notif-user',
                         options=[{'label':n, 'value':n} for n in name2],
+			value=name2[0],
                         style={'width':200},
                     ),
                     html.Br(),html.Br(),
@@ -711,7 +712,7 @@ user_page = html.Div([
                     dcc.Input(id='user-date',value='Date', type='date',
                               style={'width':120}),
                     html.Br(),html.Br(),
-                    dcc.Dropdown(id='user-dept',type='text',
+                    dcc.Dropdown(id='user-dept',
                               options=[{'label':n, 'value':n} for n in name5],
                               value=name5[0],
                               style={'width':120}),
