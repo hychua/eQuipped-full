@@ -73,7 +73,7 @@ name = df.name.unique().tolist()
 
 # load notification table
 sql0 = "SELECT * FROM notification"
-df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi"])
+df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
 columns0=[{"name": i, "id": i} for i in df0.columns]
 data0=df0.to_dict("rows")
 id0 = df0.id.unique().tolist()
