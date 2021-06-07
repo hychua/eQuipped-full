@@ -404,6 +404,9 @@ notification_page = html.Div([
                     html.Br(),html.Br(),
                     html.Label('Equipment:',
                       style={'font-weight':'bold','font-size':18}),
+                    html.Br(),html.Br(),
+                    html.Label('Requester:',
+                      style={'font-weight':'bold','font-size':18}),
                     html.Br(),html.Br(),html.Br(),
                     html.Button(
                         id='notif-submit-button',
@@ -438,7 +441,12 @@ notification_page = html.Div([
                         options=[{'label':n, 'value':n} for n in name3],
                         style={'width':200},
                     ),
-
+                    html.Br(),html.Br(),
+                    dcc.Dropdown(
+                        id='notif-user',
+                        options=[{'label':n, 'value':n} for n in name2],
+                        style={'width':200},
+                    ),
                     html.Br(),html.Br(),
                     html.Div([
                         
@@ -674,7 +682,7 @@ user_page = html.Div([
                     html.Label('Date:',
                       style={'font-weight':'bold','font-size':18}),
                     html.Br(),html.Br(),
-                    html.Label('Department:',
+                    html.Label('Location:',
                       style={'font-weight':'bold','font-size':18}),
                     html.Br(),html.Br(),
                     html.Label('Type:',
@@ -703,7 +711,9 @@ user_page = html.Div([
                     dcc.Input(id='user-date',value='Date', type='date',
                               style={'width':120}),
                     html.Br(),html.Br(),
-                    dcc.Input(id='user-dept',value='Department', type='text',
+                    dcc.Dropdown(id='user-dept',type='text',
+                              options=[{'label':n, 'value':n} for n in name5],
+                              value=name5[0],
                               style={'width':120}),
                     html.Br(),html.Br(),
                     dcc.Dropdown(id='user-type',value='Admin',
@@ -1582,19 +1592,20 @@ def login_output_warning(login_submit_button,login_save_button,login_delete_butt
      State('notif-date', 'value'),
      State('notif-priority', 'value'),
      State('notif-equi', 'value'),
+     State('notif-user','value'),
      State('notiftable','selected_rows'),     
      State('notiftable', 'data'),
      State('notif-dropdown','value')
      ])
 def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
            notif_mode,notif_name, notif_date, notif_priority,
-           notif_equi,selected_rows,data,notif_dropdown):
+           notif_equi,notif_user,selected_rows,data,notif_dropdown):
    ctx = dash.callback_context
    if ctx.triggered:
        eventid = ctx.triggered[0]['prop_id'].split('.')[0]
        if eventid =="notif-submit-button":
            sql = "SELECT * FROM notification"
-           df = querydatafromdatabase(sql,[],["id","name","date","priority","equi"])
+           df = querydatafromdatabase(sql,[],["id","name","date","priority","equi","users"])
            columns=[{"name": i, "id": i} for i in df.columns]
            data=df.to_dict("rows")
            name = df.name.unique().tolist()
@@ -1614,9 +1625,9 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
                    df = querydatafromdatabase(sql,[],["id"])
                    input_id = int(df['id'][0])+1
                    sqlinsert = "INSERT INTO notification(id,name,date,priority,equi) VALUES(%s, %s, %s, %s, %s)"
-                   modifydatabase(sqlinsert, [input_id,notif_name, notif_date, notif_priority,notif_equi])
+                   modifydatabase(sqlinsert, [input_id,notif_name, notif_date, notif_priority,notif_equi,notif_user])
                    sql = "SELECT * FROM notification"
-                   df = querydatafromdatabase(sql,[],["id","name","date","priority","equi"])
+                   df = querydatafromdatabase(sql,[],["id","name","date","priority","equi","users"])
                    columns=[{"name": i, "id": i} for i in df.columns]
                    data=df.to_dict("rows")
                    name = df.name.unique().tolist()
@@ -1630,10 +1641,10 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
                if notif_name in name2:
                    if notif_name == notif_dropdown:
                        input_id=data[selected_rows[0]]['id']
-                       sqlinsert = "UPDATE notification SET name=%s,date=%s,priority=%s,equi=%s WHERE id=%s"
-                       modifydatabase(sqlinsert, [notif_name,notif_date,notif_priority,notif_equi,input_id])
+                       sqlinsert = "UPDATE notification SET name=%s,date=%s,priority=%s,equi=%s,users=%s WHERE id=%s"
+                       modifydatabase(sqlinsert, [notif_name,notif_date,notif_priority,notif_equi,notif_user,input_id])
                        sql = "SELECT * FROM notification"
-                       df = querydatafromdatabase(sql,[],["id","name","date","priority","equi"])
+                       df = querydatafromdatabase(sql,[],["id","name","date","priority","equi","users"])
                        columns=[{"name": i, "id": i} for i in df.columns]
                        data=df.to_dict("rows")
                        name = df.name.unique().tolist()
@@ -1641,7 +1652,7 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
                        return [data,columns,0,options]
                    else:
                        sql = "SELECT * FROM notification"
-                       df = querydatafromdatabase(sql,[],["id","name","date","priority","equi"])
+                       df = querydatafromdatabase(sql,[],["id","name","date","priority","equi","users"])
                        columns=[{"name": i, "id": i} for i in df.columns]
                        data=df.to_dict("rows")
                        name = df.name.unique().tolist()
@@ -1650,10 +1661,10 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
                        return print("There is already an entry with the same name.")
                else:
                    input_id=data[selected_rows[0]]['id']
-                   sqlinsert = "UPDATE notification SET name=%s,date=%s,priority=%s,equi=%s, WHERE id=%s"
-                   modifydatabase(sqlinsert, [notif_name,notif_date,notif_priority,notif_equi,input_id])
+                   sqlinsert = "UPDATE notification SET name=%s,date=%s,priority=%s,equi=%s,users=%s WHERE id=%s"
+                   modifydatabase(sqlinsert, [notif_name,notif_date,notif_priority,notif_equi,notif_user,input_id])
                    sql = "SELECT * FROM notification"
-                   df = querydatafromdatabase(sql,[],["id","name","date","priority","equi"])
+                   df = querydatafromdatabase(sql,[],["id","name","date","priority","equi","users"])
                    columns=[{"name": i, "id": i} for i in df.columns]
                    data=df.to_dict("rows")
                    name = df.name.unique().tolist()
@@ -1662,7 +1673,7 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
        elif eventid =="notif-delete-button":
            if 1 not in notif_mode:
                sql = "SELECT * FROM notification"
-               df = querydatafromdatabase(sql,[],["id","name","date","priority","equi"])
+               df = querydatafromdatabase(sql,[],["id","name","date","priority","equi","users"])
                columns=[{"name": i, "id": i} for i in df.columns]
                data=df.to_dict("rows")
                name = df.name.unique().tolist()
@@ -1674,7 +1685,7 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
                sqldelete = "DELETE FROM notification WHERE id=%s"
                modifydatabase(sqldelete, [input_id])
                sql = "SELECT * FROM notification"
-               df = querydatafromdatabase(sql,[],["id","name","date","priority","equi"])
+               df = querydatafromdatabase(sql,[],["id","name","date","priority","equi","users"])
                columns=[{"name": i, "id": i} for i in df.columns]
                data=df.to_dict("rows")
                name = df.name.unique().tolist()
@@ -1682,7 +1693,7 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
                return [data,columns,0,options]        
        elif eventid =="notif-mode":
            sql = "SELECT * FROM notification"
-           df = querydatafromdatabase(sql,[],["id","name","date","priority","equi"])
+           df = querydatafromdatabase(sql,[],["id","name","date","priority","equi","users"])
            columns=[{"name": i, "id": i} for i in df.columns]
            data=df.to_dict("rows")
            name = df.name.unique().tolist()
@@ -1699,6 +1710,7 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
      Output('notif-date', 'value'),
      Output('notif-priority', 'value'),
      Output('notif-equi', 'value'),
+     Output('notif-user', 'value'),
      ],
     [
      Input('notifsubmitmode', 'value'),
@@ -1709,37 +1721,38 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
      State('notif-date', 'value'),
      State('notif-priority', 'value'),
      State('notif-equi', 'value'),
+     State('notif-user', 'value'),
      State('notiftable', 'data'),
      ])
 def notif_clear(notifsubmitmode, selected_rows,notif_name, notif_date,
-          notif_priority,notif_equi,data):
+          notif_priority,notif_equi,notif_user,data):
    ctx = dash.callback_context
    if ctx.triggered:
        eventid = ctx.triggered[0]['prop_id'].split('.')[0]
        if eventid =="notifsubmitmode" :
           if notifsubmitmode==0:
-              return ["","","",""]
+              return ["","","","",""]
           elif notifsubmitmode==1:
-              return [notif_name, notif_date,notif_priority,notif_equi]
+              return [notif_name, notif_date,notif_priority,notif_equi,notif_user]
           elif notifsubmitmode==2:
               if selected_rows:
                   
                   sql = "SELECT * FROM notification WHERE id =%s"
                   df = querydatafromdatabase(sql,[data[selected_rows[0]]['id']],
-                                             ["id","name","date","priority","equi"])              
+                                             ["id","name","date","priority","equi","users"])              
                           
-                  return [df['name'][0],df['date'][0],df['priority'][0],df['equi'][0]]    
+                  return [df['name'][0],df['date'][0],df['priority'][0],df['equi'][0],df['users'][0]]    
               else:
-                  return ["","","",""]
+                  return ["","","","",""]
        elif eventid =="notiftable":
            if selected_rows:
                 sql = "SELECT * FROM notification WHERE id =%s"
                 df = querydatafromdatabase(sql,[data[selected_rows[0]]['id']],
-                                           ["id","name","date","priority","equi"])              
+                                           ["id","name","date","priority","equi","users"])              
         
-                return [df['name'][0],df['date'][0],df['priority'][0],df['equi'][0]]         
+                return [df['name'][0],df['date'][0],df['priority'][0],df['equi'][0],df['users'][0]]         
            else:
-                return ["","","",""]     
+                return ["","","","",""]     
    else:
       raise PreventUpdate()
       
@@ -1748,7 +1761,7 @@ def notif_clear(notifsubmitmode, selected_rows,notif_name, notif_date,
     [Input('notif-dropdown', 'value') ])
 def notif_choose_row(notif_dropdown):
     sql = "SELECT * FROM notification"
-    df = querydatafromdatabase(sql,[],["id","name","date","priority","equi"])
+    df = querydatafromdatabase(sql,[],["id","name","date","priority","equi","users"])
     row_id = df[df["name"]==notif_dropdown]['name'].index
     return list(row_id)
 
@@ -1757,7 +1770,7 @@ def notif_choose_row(notif_dropdown):
     Input('notiftable', 'selected_rows'))
 def notif_choose_row2(selected_rows):
     sql = "SELECT * FROM notification"
-    df = querydatafromdatabase(sql,[],["id","name","date","priority","equi"])
+    df = querydatafromdatabase(sql,[],["id","name","date","priority","equi","users"])
     chosen_row = df["name"][selected_rows[0]]
     return chosen_row
 
