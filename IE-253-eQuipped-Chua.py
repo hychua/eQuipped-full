@@ -131,22 +131,34 @@ url_bar_and_content_div = html.Div([
 ])
 
 layout_index = html.Div([
+                html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
+                     style={'height':100,'display':'inline-block'}),
+                html.Div([
+                    html.H1('WELCOME',
+                            style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir'}),
+                    
+                    html.H2('to eQuipped Maintenance Manager',
+                            style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir'}),            
+                        ],
+                        style={'display':'inline-block','margin-left':50}),
+                
+            dcc.Link("Need to manage User Account Access? Click Here!", href='/register',
+                     style={'font-family':'avenir','fontSize':16,'display':'inline-block','float':'right'}),
+            
     html.Div(' ',
-        style={'backgroundColor':'rgb(0,123,255)','height':42}),
-    html.Div([
-            html.H1('WELCOME',
-                    style={'color':'rgb(0,123,255)','textAlign':'center',
-                           'font-family':'avenir'}),
+        style={'backgroundColor':'rgb(0,123,255)','height':20,'borderRadius':5}),
+        
+                
             
-            html.H2('to eQuipped Maintenance Manager',
-                    style={'color':'rgb(0,123,255)','textAlign':'center',
-                           'font-family':'avenir'}),
-            
-            html.H3('Which type of data do you need to manage?',
-    style={'color':'rgb(0,123,255)','textAlign':'center',
-                           'font-family':'avenir'}),
     
     html.Div([
+        html.H2('Which type of data do you need to manage?',
+                            style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir'}),       
+        
+        html.Div([
         html.Div([
             html.H3('Transactional Data',
                     style={'color':'rgb(0,123,255)','textAlign':'center',
@@ -273,13 +285,8 @@ layout_index = html.Div([
                     dcc.Link('Navigate to "/user"', href='/user'), 
                     html.Div(id='container-button-timestamp'),
                         ],style={'display':'none'}),
-            html.Br(),
-            dcc.Link("Need to manage User Account Access? Click Here!", href='/register',
-                     style={'font-family':'avenir','fontSize':16}),
-            
-            html.Br(),html.Br(),
-            html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
-                     style={'height':125}),
+
+
             
             ],
         style={'textAlign':'center'})
