@@ -59,6 +59,8 @@ VALID_USERNAME_PASSWORD_PAIRS = username_password
 app = dash.Dash(__name__)
 server = app.server
 
+app.title = "e-Quipped Maintenance Application"
+
 auth = dash_auth.BasicAuth(
     app,
     VALID_USERNAME_PASSWORD_PAIRS
@@ -176,7 +178,7 @@ layout_index = html.Div([
         html.Div([
         html.Div([
             html.Img(src='data:image/png;base64,{}'.format(order_encoded_image.decode()),
-                     style={'width':100}),
+                     style={'width':90}),
             html.Br(),            
             html.H3('Transactional Data',
                     style={'color':'rgb(0,123,255)','textAlign':'center',
@@ -210,7 +212,7 @@ layout_index = html.Div([
         
         html.Div([
             html.Img(src='data:image/png;base64,{}'.format(equi_encoded_image.decode()),
-                     style={'width':100}),
+                     style={'width':90}),
             html.Br(),
             html.H3('Master Data',
                     style={'color':'rgb(0,123,255)','textAlign':'center',
@@ -263,7 +265,7 @@ layout_index = html.Div([
         
         html.Div([
             html.Img(src='data:image/png;base64,{}'.format(report_encoded_image.decode()),
-                     style={'width':100}),
+                     style={'width':90}),
             html.Br(),
             html.H3('Reports',
                     style={'color':'rgb(0,123,255)','textAlign':'center',
