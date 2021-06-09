@@ -147,7 +147,7 @@ layout_index = html.Div([
                             style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir'}),
                     
-                    html.H2('to eQuipped Maintenance Manager',
+                    html.H2('to e-Quipped Maintenance Manager',
                             style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir'}),            
                         ],
@@ -157,7 +157,7 @@ layout_index = html.Div([
                      style={'font-family':'avenir','fontSize':16,'display':'inline-block','float':'right'}),
             
     html.Div(' ',
-        style={'backgroundColor':'rgb(0,123,255)','height':20,'borderRadius':5}),
+        style={'backgroundColor':'rgb(0,123,255)','height':15,'borderRadius':5}),
     html.Button(
                         id='dummy-button',
                         n_clicks=0,
