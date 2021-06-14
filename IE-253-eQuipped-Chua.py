@@ -140,186 +140,40 @@ url_bar_and_content_div = html.Div([
 ])
 
 layout_index = html.Div([
-                html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
-                     style={'height':100,'display':'inline-block'}),
-                html.Div([
-                    html.H1('WELCOME',
-                            style={'color':'rgb(0,123,255)',
-                                   'font-family':'avenir'}),
-                    
-                    html.H2('to e-Quipped Maintenance Manager',
-                            style={'color':'rgb(0,123,255)',
-                                   'font-family':'avenir'}),            
-                        ],
-                        style={'display':'inline-block','margin-left':50}),
                 
-            dcc.Link("Need to Manage User Access? Click Here!", href='/register',
-                     style={'font-family':'avenir','fontSize':16,'display':'inline-block','float':'right'}),
-            
     html.Div(' ',
-        style={'backgroundColor':'rgb(0,123,255)','height':15,'borderRadius':5}),
-    html.Button(
-                        id='dummy-button',
-                        n_clicks=0,
-                        children='Dummy',
-                        style={'fontSize':18,
-                               'color':'rgb(0,123,255)',
-                               'backgroundColor':'rgb(255,255,255)',
-                               'borderRadius':5,
-                               'height':42,'width':200,
-                               'font-family':'minion', 'float':'right',
-                               'display':'none'}),    
+        style={'backgroundColor':'rgb(0,123,255)','height':20,'borderRadius':5}),
         
     html.Div([
-        html.H2('Which type of data do you need to manage?',
+        html.H2('Please select the Tab of the data you wish to manage above.',
                             style={'color':'rgb(0,123,255)',
-                                   'font-family':'avenir'}),       
-        
-        html.Div([
-        html.Div([
-            html.Img(src='data:image/png;base64,{}'.format(order_encoded_image.decode()),
-                     style={'width':90}),
-            html.Br(),            
-            html.H3('Transactional Data',
-                    style={'color':'rgb(0,123,255)','textAlign':'center',
-                           'font-family':'avenir'}),
-            html.Button(
-                        id='notif-button',
-                        n_clicks=0,
-                        children='Notification',
-                        style={'fontSize':18,
-                               'color':'rgb(255,255,255)',
-                               'backgroundColor':'rgb(0,123,255)',
-                               'borderRadius':5,
-                               'height':50,'width':200,
-                               'font-family':'minion'}),
-            html.Br(),html.Br(),
-            html.Button(
-                            id='order-button',
-                            n_clicks=0,
-                            children='Order',
-                            style={'fontSize':18,
-                                   'color':'rgb(255,255,255)',
-                                   'backgroundColor':'rgb(0,123,255)',
-                                   'borderRadius':5,
-                                   'height':50,'width':200,
-                               'font-family':'minion'}),
-            html.Br(),html.Br(),html.Br(),
-            html.Br(),html.Br(),html.Br(),
-            html.Br(),
-            ],
-            style={'display':'inline-block'}),
-        
-        html.Div([
-            html.Img(src='data:image/png;base64,{}'.format(equi_encoded_image.decode()),
-                     style={'width':90}),
-            html.Br(),
-            html.H3('Master Data',
-                    style={'color':'rgb(0,123,255)','textAlign':'center',
-                           'font-family':'avenir'}),
-            html.Button(
-                        id='equi-button',
-                        n_clicks=0,
-                        children='Equipment',
-                        style={'fontSize':18,
-                               'color':'rgb(255,255,255)',
-                               'backgroundColor':'rgb(0,123,255)',
-                               'borderRadius':5,
-                               'height':50,'width':200,
-                            'font-family':'minion'}),
-            html.Br(),html.Br(),
-            html.Button(
-                            id='user-button',
-                            n_clicks=0,
-                            children='User',
-                            style={'fontSize':18,
-                                   'color':'rgb(255,255,255)',
-                                   'backgroundColor':'rgb(0,123,255)',
-                                   'borderRadius':5,
-                                   'height':50,'width':200,
-                               'font-family':'minion'}),
-            html.Br(),html.Br(),
-            html.Button(
-                            id='damage-button',
-                            n_clicks=0,
-                            children='Damage',
-                            style={'fontSize':18,
-                                   'color':'rgb(255,255,255)',
-                                   'backgroundColor':'rgb(0,123,255)',
-                                   'borderRadius':5,
-                                   'height':50,'width':200,
-                               'font-family':'minion'}),
-            html.Br(),html.Br(),
-            html.Button(
-                            id='location-button',
-                            n_clicks=0,
-                            children='Location',
-                            style={'fontSize':18,
-                                   'color':'rgb(255,255,255)',
-                                   'backgroundColor':'rgb(0,123,255)',
-                                   'borderRadius':5,
-                                   'height':50,'width':200,
-                               'font-family':'minion'}),
-            ],
-            style={'display':'inline-block','margin-left':100}),
-        
-        html.Div([
-            html.Img(src='data:image/png;base64,{}'.format(report_encoded_image.decode()),
-                     style={'width':90}),
-            html.Br(),
-            html.H3('Reports',
-                    style={'color':'rgb(0,123,255)','textAlign':'center',
-                           'font-family':'avenir'}),
-            html.Button(
-                        id='report1-button',
-                        n_clicks=0,
-                        children='Equipment Report',
-                        style={'fontSize':18,
-                               'color':'rgb(255,255,255)',
-                               'backgroundColor':'rgb(0,123,255)',
-                               'borderRadius':5,
-                               'height':50,'width':200,
-                               'font-family':'minion'}),
-            html.Br(),html.Br(),
-            html.Button(
-                        id='report2-button',
-                        n_clicks=0,
-                        children='Time Sheet Report',
-                        style={'fontSize':18,
-                               'color':'rgb(255,255,255)',
-                               'backgroundColor':'rgb(0,123,255)',
-                               'borderRadius':5,
-                               'height':50,'width':200,
-                               'font-family':'minion'}),
-            html.Br(),html.Br(),html.Br(),
-            html.Br(),html.Br(),html.Br(),
-            html.Br(),
-            
-            ],
-                 style={'display':'inline-block','margin-left':100}),
-
-
-                      ],style={'textAlign':'center'}),
-    
-    html.Div([html.Br(),
-                html.Div([
-                    dcc.Link('Navigate to "Main Menu"', href='/'),
-                    html.Br(),
-                    dcc.Link('Navigate to "/equipment"', href='/equipment'),
-                    html.Br(),
-                    dcc.Link('Navigate to "/order"', href='/order'),
-                    html.Br(),
-                    dcc.Link('Navigate to "/user"', href='/user'), 
-                    html.Div(id='container-button-timestamp'),
-                        ],style={'display':'none'}),
-
-
-            
-            ],
-        style={'textAlign':'center'})
+                                   'font-family':'avenir',}),      
+        html.H3("Here is a brief guide of how to use each tab:",style={'color':'rgb(0,123,255)',
+                                   'font-family':'minion'}),
+        html.H4("Transacitonal Data:"),
+        html.P("> Notification: usually created by the operator; this is created to inform maintenance of a malfunction in the machine.",style={
+                                   'font-family':'minion'}),
+        html.P("> Orders: usually created by technicians; this is to record details of the maintenance work.",style={
+                                   'font-family':'minion'}),
+        html.H4("Master Data:"),
+        html.P("> Users: manage employee records like name and location assignment",style={
+                                   'font-family':'minion'}),
+        html.P("> Equipment: manage specifications of machines or tools",style={
+                                   'font-family':'minion'}),
+        html.P("> Damage: add/edit/delete types of damage",style={
+                                   'font-family':'minion'}),
+        html.P("> Location: add/edit/delete names of locations in the plant",style={
+                                   'font-family':'minion'}),
+        html.H4("Reports:"),
+        html.P("> Report 1: Equipment Repair Report by Damage and Order types",style={
+                                   'font-family':'minion'}),
+        html.P("> Report 2: Time Sheet Report of Employees per Month",style={
+                                   'font-family':'minion'}),
+              
     
         ])
     ])
+
 
 registration_page = html.Div([
     html.Div(' ', style={'backgroundColor':'rgb(0,123,255)','height':42}),
@@ -518,12 +372,7 @@ notification_page = html.Div([
                 ], style={'display':'inline-block', 'margin-left':25}),
                 
                 html.Br(),html.Br(),
-                dcc.Link('Navigate to "Main Menu"', href='/'),
-                html.Br(),html.Br(),
-                dcc.Link('Navigate to "Orders"', href='/order'),
-                html.Br(),html.Br(),
-                dcc.Link('Navigate to "Equipment"', href='/equipment'),
-                html.Br(),html.Br(),
+
                     html.Img(src='data:image/png;base64,{}'.format(encoded_image2.decode()),
                      style={'height':125}),
     
@@ -673,14 +522,7 @@ order_page = html.Div([
                 ], style={'display':'inline-block', 'margin-left':25}),
 
     html.Br(),html.Br(),
-    dcc.Link('Navigate to "Main Menu"', href='/'),
-    html.Br(),html.Br(),
-    dcc.Link('Navigate to "Damage"', href='/damage'),
-    html.Br(),html.Br(),
-    dcc.Link('Navigate to "Equipment"', href='/equipment'),
-    html.Br(),html.Br(),
-    dcc.Link('Navigate to "Notification"', href='/notification'),
-    html.Br(),html.Br(),
+
                     html.Img(src='data:image/png;base64,{}'.format(encoded_image2.decode()),
                      style={'height':125}),
     
@@ -803,10 +645,7 @@ user_page = html.Div([
 
                     ], style={'display':'inline-block', 'margin-left':25}),
                 html.Br(),html.Br(),
-                dcc.Link('Navigate to "Main Menu"', href='/'),
-                html.Br(),html.Br(),
-                    dcc.Link('Navigate to "Time Sheet Report"', href='/report2'),
-                html.Br(),html.Br(),
+
                     html.Img(src='data:image/png;base64,{}'.format(encoded_image2.decode()),
                      style={'height':125}),    
 
@@ -933,12 +772,7 @@ equipment_page = html.Div([
                              'margin-left':25}),
             
             html.Br(),html.Br(),
-            dcc.Link('Navigate to "Main Menu"', href='/'),
-            html.Br(),html.Br(),
-            dcc.Link('Navigate to "Location"', href='/location'),
-            html.Br(),html.Br(),
-            dcc.Link('Navigate to "Equipment Report"', href='/report1'),
-            html.Br(),html.Br(),
+
                     html.Img(src='data:image/png;base64,{}'.format(encoded_image2.decode()),
                      style={'height':125}),
             
@@ -1033,8 +867,7 @@ damage_page = html.Div([
                              ),
                 ], style={'display':'inline-block', 'margin-left':25}),
                     html.Br(),html.Br(),
-                    dcc.Link('Navigate to "Main Menu"', href='/'),
-                    html.Br(),html.Br(),
+
                     html.Img(src='data:image/png;base64,{}'.format(encoded_image2.decode()),
                      style={'height':125}),
                     
@@ -1123,8 +956,7 @@ location_page = html.Div([
                              ),
                 ], style={'display':'inline-block', 'margin-left':25}),
                     html.Br(),html.Br(),
-                    dcc.Link('Navigate to "Main Menu"', href='/'),
-                    html.Br(),html.Br(),
+
                     html.Img(src='data:image/png;base64,{}'.format(encoded_image2.decode()),
                      style={'height':125}),
                     
@@ -1194,12 +1026,7 @@ report1_page = html.Div([
 
                     html.Br(),
                     html.Br(),html.Br(),
-                    dcc.Link('Navigate to "Main Menu"', href='/'),
-                    html.Br(),html.Br(),
-                    dcc.Link('Navigate to "Equipment"', href='/equipment'),
-                    html.Br(),html.Br(),
-                    dcc.Link('Navigate to "Order"', href='/order'),
-                    html.Br(),html.Br(),
+
                     html.Img(src='data:image/png;base64,{}'.format(encoded_image2.decode()),
                      style={'height':125}),
                     
@@ -1275,12 +1102,7 @@ report2_page = html.Div([
 
                     html.Br(),
                     html.Br(),html.Br(),
-                    dcc.Link('Navigate to "Main Menu"', href='/'),
-                    html.Br(),html.Br(),
-                    dcc.Link('Navigate to "Users"', href='/user'),
-                    html.Br(),html.Br(),
-                    dcc.Link('Navigate to "Order"', href='/order'),
-                    html.Br(),html.Br(),
+
                     html.Img(src='data:image/png;base64,{}'.format(encoded_image2.decode()),
                      style={'height':125}),
                     
@@ -1305,19 +1127,63 @@ report2_page = html.Div([
 # index layout
 app.layout = url_bar_and_content_div
 
+layout2 = html.Div([
+    html.Button(
+                        id='reg-button',
+                        n_clicks=0,
+                        children='Manage User Access',
+                        style={'fontSize':18,
+                               'color':'rgb(0,123,255)',
+                               'backgroundColor':'rgb(255,255,255)',
+                               'borderRadius':5,
+                               'height':42,'width':200,
+                               'font-family':'minion', 'display':'inline-block','float':'right'}),
+
+    html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
+                     style={'height':100,'display':'inline-block'}),
+                html.Div([
+                    html.H1('WELCOME',
+                            style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir'}),
+                    
+                    html.H2('to e-Quipped Maintenance Manager',
+                            style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir'}),            
+                        ],
+                        style={'display':'inline-block','margin-left':50}),
+
+    html.Div([
+        dcc.Tabs(id='tabs', value='home', children=[
+        dcc.Tab(label='Home', value='home',style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir'}),
+        dcc.Tab(label='Notification', value='notif',style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir'}),
+        dcc.Tab(label='Orders', value='orders',style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir'}),
+        dcc.Tab(label='Users', value='users',style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir'}),
+        dcc.Tab(label='Equipment', value='equi',style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir'}),
+        dcc.Tab(label='Damage', value='damage',style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir'}),
+        dcc.Tab(label='Location', value='loc',style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir'}),
+        dcc.Tab(label='Report 1', value='report1',style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir'}),
+        dcc.Tab(label='Report 2', value='report2',style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir'})
+        ]),
+    
+    ]),
+    html.Div(id='tabs-content'),
+
+])
+
 # "complete" layout
 app.validation_layout = html.Div([
     url_bar_and_content_div,
-    layout_index,
-    notification_page,
-    order_page,
-    user_page,
-    equipment_page,
-    damage_page,
-    location_page,
-    report1_page,
-    report2_page,
     registration_page,
+    layout2
 ])
 
 # Index callbacks
@@ -1327,70 +1193,46 @@ app.validation_layout = html.Div([
     [Input('url', 'pathname'),]
      )
 def display_page(pathname):
-    if pathname == "/dummy":
-        return layout_index
-    elif pathname == "/notification":
-        return notification_page
-    elif pathname == "/order":
-        return order_page
-    elif pathname == "/user":
-        return user_page
-    elif pathname == "/equipment":
-        return equipment_page
-    elif pathname == "/damage":
-        return damage_page
-    elif pathname == "/location":
-        return location_page
-    elif pathname == "/report1":
-        return report1_page
-    elif pathname == "/report2":
-        return report2_page
-    elif pathname == "/register":
+    if pathname == "/register":
         return registration_page
     else:
-        return layout_index
+        return layout2
     
 # main menu callbacks
 @app.callback(
     Output('url','pathname'),
     [
-     Input('dummy-button','n_clicks'),
-     Input('notif-button','n_clicks'),
-     Input('order-button','n_clicks'),
-     Input('user-button','n_clicks'),
-     Input('equi-button','n_clicks'),
-     Input('damage-button','n_clicks'),
-     Input('location-button','n_clicks'),
-     Input('report1-button','n_clicks'),
-     Input('report2-button','n_clicks'),
+     Input('reg-button','n_clicks'),
      ]
     )
-def menu_output(dummy_button,notif_button,order_button,user_button,equi_button,
-                damage_button,location_button,report1_button,report2_button):   
-    ctx = dash.callback_context
-    if ctx.triggered:
-       eventid = ctx.triggered[0]['prop_id'].split('.')[0]
-       if eventid == 'dummy-button':
-           path = '/'
-       elif eventid == 'notif-button':
-           path = '/notification'
-       elif eventid == 'order-button':
-           path = '/order'
-       elif eventid == 'user-button':
-           path = '/user'
-       elif eventid == 'equi-button':
-           path = '/equipment'
-       elif eventid == 'damage-button':
-           path = '/damage'
-       elif eventid == 'location-button':
-           path = '/location'
-       elif eventid == 'report1-button':
-           path = '/report1'
-       elif eventid == 'report2-button':
-           path = '/report2'
+def menu_output(reg_button):   
+       if reg_button:
+           return '/register'
        else:
-           path = '/'
-    return path
+           return '/'
+
+# Tab callbacks
+@app.callback(Output('tabs-content', 'children'),
+              Input('tabs', 'value'))
+def render_content(tab):
+    if tab == 'home':
+        return layout_index
+    elif tab == 'notif':
+        return notification_page
+    elif tab == 'orders':
+        return order_page
+    elif tab == 'users':
+        return user_page
+    elif tab == 'equi':
+        return equipment_page
+    elif tab == 'damage':
+        return damage_page
+    elif tab == 'loc':
+        return location_page
+    elif tab == 'report1':
+        return report1_page
+    elif tab == 'report2':
+        return report2_page
 
 # login registration callbacks
 @app.callback(
