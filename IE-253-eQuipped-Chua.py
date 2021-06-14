@@ -127,13 +127,6 @@ encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 image_filename2 = 'equipped-icon.jpg' # replace with your own image
 encoded_image2 = base64.b64encode(open(image_filename2, 'rb').read())
 
-order_icon = 'order_icon.png' # replace with your own image
-order_encoded_image = base64.b64encode(open(order_icon, 'rb').read())
-equi_icon = 'equi_icon.png' # replace with your own image
-equi_encoded_image = base64.b64encode(open(equi_icon, 'rb').read())
-report_icon = 'report_icon.png' # replace with your own image
-report_encoded_image = base64.b64encode(open(report_icon, 'rb').read())
-
 url_bar_and_content_div = html.Div([
     dcc.Location(id='url', refresh=False),
     html.Div(id='page-content')
