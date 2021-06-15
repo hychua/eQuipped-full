@@ -1169,7 +1169,7 @@ layout2 = html.Div([
                                    'font-family':'avenir','fontSize':18}),
         dcc.Tab(label='Orders', value='orders',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18}),
-        dcc.Tab(label='Users', value='users',style={'color':'rgb(0,123,255)',
+        dcc.Tab(id="users-tab",label='Users', value='users',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18}),
         dcc.Tab(label='Equipment', value='equi',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18}),
@@ -1197,15 +1197,26 @@ app.validation_layout = html.Div([
 
 # Index callbacks
 @app.callback(
+    [
     Output('page-content', 'children'),
-              
+    Output('users-tab','style')
+    ],
     Input('url', 'pathname'),
      )
 def display_page(pathname):
+    username = request.authorization['username']
     if pathname == "/register":
-        return registration_page
+        if username in login2:
+            return [registration_page,{'color':'rgb(0,123,255)',
+                                   'font-family':'avenir','fontSize':18}]
+        else:
+            return [registration_page,{'display':'none'}]
     else:
-        return layout2
+        if username in login2:
+            return [layout2,{'color':'rgb(0,123,255)',
+                                   'font-family':'avenir','fontSize':18}]
+        else:
+            return [layout2,{'display':'none'}]
     
 # main menu callbacks
 @app.callback(
