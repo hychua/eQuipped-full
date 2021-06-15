@@ -67,8 +67,6 @@ auth = dash_auth.BasicAuth(
     VALID_USERNAME_PASSWORD_PAIRS
 )
 
-username = request.authorization['username']
-
 # load login table
 sql = "SELECT * FROM login"
 df = querydatafromdatabase(sql,[],["id","name","password"])
@@ -1170,7 +1168,7 @@ layout2 = html.Div([
                                    'font-family':'avenir','fontSize':18}),
         dcc.Tab(label='Orders', value='orders',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18}),
-        dcc.Tab(label='Users', value='users',style={'color':'rgb(0,123,255)',
+        dcc.Tab(id='users-tab',label='Users', value='users',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18}),
         dcc.Tab(label='Equipment', value='equi',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18}),
@@ -1183,12 +1181,13 @@ layout2 = html.Div([
         dcc.Tab(label='Report 2', value='report2',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18})
         ]),
-    
+        
+
     ], style={}),
-    
     html.Div(id='tabs-content', style={}),
 
 ])
+
 
 # "complete" layout
 app.validation_layout = html.Div([
@@ -1196,6 +1195,7 @@ app.validation_layout = html.Div([
     registration_page,
     layout2
 ])
+
 
 # Index callbacks
 @app.callback(
