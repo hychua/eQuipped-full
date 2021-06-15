@@ -67,6 +67,8 @@ auth = dash_auth.BasicAuth(
     VALID_USERNAME_PASSWORD_PAIRS
 )
 
+username = request.authorization['username']
+
 # load login table
 sql = "SELECT * FROM login"
 df = querydatafromdatabase(sql,[],["id","name","password"])
@@ -1168,7 +1170,7 @@ layout2 = html.Div([
                                    'font-family':'avenir','fontSize':18}),
         dcc.Tab(label='Orders', value='orders',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18}),
-        dcc.Tab(label='Users', value='users',style={'color':'rgb(0,123,255)',
+        dcc.Tab(id='users-tab',label='Users', value='users',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18}),
         dcc.Tab(label='Equipment', value='equi',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18}),
@@ -1181,6 +1183,8 @@ layout2 = html.Div([
         dcc.Tab(label='Report 2', value='report2',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18})
         ]),
+        
+        dcc.Dropdown(id='users-ind',value=username)
     
     ], style={}),
     html.Div(id='tabs-content', style={}),
@@ -1193,6 +1197,22 @@ app.validation_layout = html.Div([
     registration_page,
     layout2
 ])
+
+# user display tab
+@app.callback(
+    Output('users-tab', 'style'),
+    [Input('users-ind', 'value'),]
+     )
+def display_page2(users_ind):
+    # load user table
+    sql2 = "SELECT type,login FROM users"
+    df2 = querydatafromdatabase(sql2,[],["type","login"])
+    login2 = df2[df2['type']=="Admin"].login.unique().tolist()
+    if users_ind not in login2:
+        return {'display':'none'}
+    else:
+        return {'display':'block'}
+
 
 # Index callbacks
 @app.callback(
