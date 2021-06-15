@@ -1161,14 +1161,22 @@ layout2 = html.Div([
                         style={'display':'inline-block','margin-left':50}),
 
     html.Div([
-        dcc.Tabs(id='tabs', value='home', children=[
+        dcc.Tabs(id='tabs', value='home'),
+    
+    ]),
+    html.Div(id='tabs-content'),
+
+])
+
+all_tabs=[
         dcc.Tab(label='Home', value='home',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18}),
         dcc.Tab(label='Notification', value='notif',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18}),
         dcc.Tab(label='Orders', value='orders',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18}),
-        dcc.Tab(id='user-tab', label='Users', value='users'),
+        dcc.Tab(label='Users', value='users',style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir','fontSize':18}),
         dcc.Tab(label='Equipment', value='equi',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18}),
         dcc.Tab(label='Damage', value='damage',style={'color':'rgb(0,123,255)',
@@ -1179,12 +1187,26 @@ layout2 = html.Div([
                                    'font-family':'avenir','fontSize':18}),
         dcc.Tab(label='Report 2', value='report2',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18})
-        ]),
-    
-    ]),
-    html.Div(id='tabs-content'),
+        ]
 
-])
+minus_users=[
+        dcc.Tab(label='Home', value='home',style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir','fontSize':18}),
+        dcc.Tab(label='Notification', value='notif',style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir','fontSize':18}),
+        dcc.Tab(label='Orders', value='orders',style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir','fontSize':18}),
+        dcc.Tab(label='Equipment', value='equi',style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir','fontSize':18}),
+        dcc.Tab(label='Damage', value='damage',style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir','fontSize':18}),
+        dcc.Tab(label='Location', value='loc',style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir','fontSize':18}),
+        dcc.Tab(label='Report 1', value='report1',style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir','fontSize':18}),
+        dcc.Tab(label='Report 2', value='report2',style={'color':'rgb(0,123,255)',
+                                   'font-family':'avenir','fontSize':18})
+        ]
 
 # "complete" layout
 app.validation_layout = html.Div([
@@ -1196,27 +1218,22 @@ app.validation_layout = html.Div([
 # Index callbacks
 @app.callback(
     [Output('page-content', 'children'),
-    Output('user-tab','style')],
+    Output('tabs','children')],
               
-    [Input('url', 'pathname'),]
+    Input('url', 'pathname'),
      )
 def display_page(pathname):
     username = request.authorization['username']
-    sql2 = "SELECT * FROM users"
-    df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
-    login2 = df2[df2["type"=='Admin']].name.unique().tolist()
     if pathname == "/register":
-        if username not in login2:
-            return [registration_page,{'display':'none'}]
+        if username in login2:
+            return [registration_page,all_tabs]
         else:
-            return [registration_page,{'color':'rgb(0,123,255)',
-                                   'font-family':'avenir','fontSize':18,}]
+            return [layout2,minus_users]
     else:
-        if username not in login2:
-            return [layout2,{'display':'none'}]
+        if username in login2:
+            return [layout2,all_tabs]
         else:
-            [layout2,{'color':'rgb(0,123,255)',
-                                   'font-family':'avenir','fontSize':18,}]
+            return [layout2,minus_users]
     
 # main menu callbacks
 @app.callback(
