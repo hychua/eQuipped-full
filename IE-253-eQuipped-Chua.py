@@ -98,7 +98,6 @@ df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
 columns2=[{"name": i, "id": i} for i in df2.columns]
 data2=df2.to_dict("rows")
 name2 = df2.name.unique().tolist()
-login2 = df2[df2["type"]=='Admin'].name.unique().tolist()
 
 # load equipment table
 sql3 = "SELECT * FROM equipment"
@@ -1169,7 +1168,7 @@ layout2 = html.Div([
                                    'font-family':'avenir','fontSize':18}),
         dcc.Tab(label='Orders', value='orders',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18}),
-        dcc.Tab(id="users-tab",label='Users', value='users',style={'color':'rgb(0,123,255)',
+        dcc.Tab(label='Users', value='users',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18}),
         dcc.Tab(label='Equipment', value='equi',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18}),
@@ -1184,6 +1183,7 @@ layout2 = html.Div([
         ]),
     
     ], style={}),
+    
     html.Div(id='tabs-content', style={}),
 
 ])
