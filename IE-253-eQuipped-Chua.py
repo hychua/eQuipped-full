@@ -1144,6 +1144,8 @@ layout2 = html.Div([
                                'borderRadius':5,
                                'height':42,'width':200,
                                'font-family':'minion', 'display':'inline-block','float':'right'}),
+                    
+                     dcc.ConfirmDialog(id='reg-confirm'),
 
                 html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
                      style={'height':100,'display':'inline-block'}),
