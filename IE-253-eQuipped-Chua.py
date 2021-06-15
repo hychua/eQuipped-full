@@ -1161,14 +1161,7 @@ layout2 = html.Div([
                         style={'display':'inline-block','margin-left':50}),
 
     html.Div([
-        dcc.Tabs(id='tabs', value='home'),
-    
-    ]),
-    html.Div(id='tabs-content'),
-
-])
-
-all_tabs=[
+        dcc.Tabs(id='tabs', value='home'),children=[
         dcc.Tab(label='Home', value='home',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18}),
         dcc.Tab(label='Notification', value='notif',style={'color':'rgb(0,123,255)',
@@ -1188,25 +1181,11 @@ all_tabs=[
         dcc.Tab(label='Report 2', value='report2',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18})
         ]
+    
+    ]),
+    html.Div(id='tabs-content'),
 
-minus_users=[
-        dcc.Tab(label='Home', value='home',style={'color':'rgb(0,123,255)',
-                                   'font-family':'avenir','fontSize':18}),
-        dcc.Tab(label='Notification', value='notif',style={'color':'rgb(0,123,255)',
-                                   'font-family':'avenir','fontSize':18}),
-        dcc.Tab(label='Orders', value='orders',style={'color':'rgb(0,123,255)',
-                                   'font-family':'avenir','fontSize':18}),
-        dcc.Tab(label='Equipment', value='equi',style={'color':'rgb(0,123,255)',
-                                   'font-family':'avenir','fontSize':18}),
-        dcc.Tab(label='Damage', value='damage',style={'color':'rgb(0,123,255)',
-                                   'font-family':'avenir','fontSize':18}),
-        dcc.Tab(label='Location', value='loc',style={'color':'rgb(0,123,255)',
-                                   'font-family':'avenir','fontSize':18}),
-        dcc.Tab(label='Report 1', value='report1',style={'color':'rgb(0,123,255)',
-                                   'font-family':'avenir','fontSize':18}),
-        dcc.Tab(label='Report 2', value='report2',style={'color':'rgb(0,123,255)',
-                                   'font-family':'avenir','fontSize':18})
-        ]
+])
 
 # "complete" layout
 app.validation_layout = html.Div([
@@ -1217,23 +1196,15 @@ app.validation_layout = html.Div([
 
 # Index callbacks
 @app.callback(
-    [Output('page-content', 'children'),
-    Output('tabs','children')],
+    Output('page-content', 'children'),
               
     Input('url', 'pathname'),
      )
 def display_page(pathname):
-    username = request.authorization['username']
     if pathname == "/register":
-        if username in login2:
-            return [registration_page,all_tabs]
-        else:
-            return [layout2,minus_users]
+        return registration_page
     else:
-        if username in login2:
-            return [layout2,all_tabs]
-        else:
-            return [layout2,minus_users]
+        return layout2
     
 # main menu callbacks
 @app.callback(
