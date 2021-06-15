@@ -1194,33 +1194,30 @@ app.validation_layout = html.Div([
     layout2
 ])
 
-# user tab display
-@app.callback(
-    Output('user-tab','style'),
-    Input('url','pathname')
-    )
-def display_users_tab(pathname):
-    username = request.authorization['username']
-    # load user table
-    sql2 = "SELECT * FROM users"
-    df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
-    login2 = df2[df2["type"=='Admin']].name.unique().tolist()
-    if username in login2:
-        if pathname == "/":
-            return {'display':'none'}
-        
-
 # Index callbacks
 @app.callback(
-    Output('page-content', 'children'),
+    [Output('page-content', 'children'),
+    Output('user-tab','style')],
               
     [Input('url', 'pathname'),]
      )
 def display_page(pathname):
+    username = request.authorization['username']
+    sql2 = "SELECT * FROM users"
+    df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+    login2 = df2[df2["type"=='Admin']].name.unique().tolist()
     if pathname == "/register":
-        return registration_page
+        if username not in login2:
+            return [registration_page,{'display':'none'}]
+        else:
+            return [registration_page,{'color':'rgb(0,123,255)',
+                                   'font-family':'avenir','fontSize':18,}]
     else:
-        return layout2
+        if username not in login2:
+            return [layout2,{'display':'none'}]
+        else:
+            [layout2,{'color':'rgb(0,123,255)',
+                                   'font-family':'avenir','fontSize':18,}]
     
 # main menu callbacks
 @app.callback(
