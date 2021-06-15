@@ -1199,24 +1199,15 @@ app.validation_layout = html.Div([
 @app.callback(
     [
     Output('page-content', 'children'),
-    Output('users-tab','style')
     ],
     Input('url', 'pathname'),
      )
 def display_page(pathname):
     username = request.authorization['username']
     if pathname == "/register":
-        if username in login2:
-            return [registration_page,{'color':'rgb(0,123,255)',
-                                   'font-family':'avenir','fontSize':18}]
-        else:
-            return [registration_page,{'display':'none'}]
+        return registration_page
     else:
-        if username in login2:
-            return [layout2,{'color':'rgb(0,123,255)',
-                                   'font-family':'avenir','fontSize':18}]
-        else:
-            return [layout2,{'display':'none'}]
+        return layout2
     
 # main menu callbacks
 @app.callback(
