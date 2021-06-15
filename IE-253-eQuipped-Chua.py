@@ -1203,7 +1203,6 @@ app.validation_layout = html.Div([
     Input('url', 'pathname'),
      )
 def display_page(pathname):
-    username = request.authorization['username']
     if pathname == "/register":
         return registration_page
     else:
