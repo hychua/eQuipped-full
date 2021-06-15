@@ -2053,13 +2053,22 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
        elif eventid =="user-save-button":
            # Add Mode
            if 1 not in user_mode:
+               username = request.authorization['username']
                sql2 = "SELECT name as name FROM users"
                df2 = querydatafromdatabase(sql2,[],["name"])
                name2 = list(df2['name'])
+               login2 = df2[df2['type']=="Admin"].login.unique().tolist()
                if user_name in name2: 
+                   sql = "SELECT * FROM users"
+                   df = querydatafromdatabase(sql,[],["id","name","date","dept","type","login"])
+                   columns=[{"name": i, "id": i} for i in df.columns]
+                   data=df.to_dict("rows")
+                   name = df.name.unique().tolist()
+                   options=[{'label':n, 'value':n} for n in name]
                    return [data,columns,0,options]
                    return print("There is already an entry with the same name.")
-               else:
+               # if Admin user
+               elif username in login2:
                    sql = "SELECT max(id) as id FROM users"
                    df = querydatafromdatabase(sql,[],["id"])
                    input_id = int(df['id'][0])+1
@@ -2072,11 +2081,35 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
                    name = df.name.unique().tolist()
                    options=[{'label':n, 'value':n} for n in name]
                    return [data,columns,0,options]
+               else:
+                   if user_type == "Admin":
+                       sql = "SELECT * FROM users"
+                       df = querydatafromdatabase(sql,[],["id","name","date","dept","type","login"])
+                       columns=[{"name": i, "id": i} for i in df.columns]
+                       data=df.to_dict("rows")
+                       name = df.name.unique().tolist()
+                       options=[{'label':n, 'value':n} for n in name]
+                       return [data,columns,0,options]
+                       return print("Only other 'Admin' users can change access type to 'Admin'. Please contact your system administrator for details.")
+                   else:
+                       sql = "SELECT max(id) as id FROM users"
+                       df = querydatafromdatabase(sql,[],["id"])
+                       input_id = int(df['id'][0])+1
+                       sqlinsert = "INSERT INTO users(id,name,date,dept,type,login) VALUES(%s, %s, %s, %s, %s, %s)"
+                       modifydatabase(sqlinsert, [input_id,user_name, user_date,user_dept,user_type,user_login])
+                       sql = "SELECT * FROM users"
+                       df = querydatafromdatabase(sql,[],["id","name","date","dept","type","login"])
+                       columns=[{"name": i, "id": i} for i in df.columns]
+                       data=df.to_dict("rows")
+                       name = df.name.unique().tolist()
+                       options=[{'label':n, 'value':n} for n in name]
+                       return [data,columns,0,options]
            # Edit Mode
            else:
                sql2 = "SELECT name as name FROM users"
                df2 = querydatafromdatabase(sql2,[],["name"])
                name2 = list(df2['name'])
+               login2 = df2[df2['type']=="Admin"].login.unique().tolist()
                if user_name in name2:
                    if user_name == user_dropdown:
                        input_id=data[selected_rows[0]]['id']
@@ -2098,10 +2131,13 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
                        options=[{'label':n, 'value':n} for n in name]
                        return [data,columns,0,options]
                        return print("There is already an entry with the same name.")
-               else:
-                   input_id=data[selected_rows[0]]['id']
-                   sqlinsert = "UPDATE users SET name=%s,date=%s,dept=%s,type=%s,login=%s WHERE id=%s"
-                   modifydatabase(sqlinsert, [user_name, user_date,user_dept,user_type,user_login,input_id])
+               # if Admin user
+               elif username in login2:
+                   sql = "SELECT max(id) as id FROM users"
+                   df = querydatafromdatabase(sql,[],["id"])
+                   input_id = int(df['id'][0])+1
+                   sqlinsert = "INSERT INTO users(id,name,date,dept,type,login) VALUES(%s, %s, %s, %s, %s, %s)"
+                   modifydatabase(sqlinsert, [input_id,user_name, user_date,user_dept,user_type,user_login])
                    sql = "SELECT * FROM users"
                    df = querydatafromdatabase(sql,[],["id","name","date","dept","type","login"])
                    columns=[{"name": i, "id": i} for i in df.columns]
@@ -2109,6 +2145,27 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
                    name = df.name.unique().tolist()
                    options=[{'label':n, 'value':n} for n in name]
                    return [data,columns,0,options]
+               else:
+                   if user_type == "Admin":
+                       sql = "SELECT * FROM users"
+                       df = querydatafromdatabase(sql,[],["id","name","date","dept","type","login"])
+                       columns=[{"name": i, "id": i} for i in df.columns]
+                       data=df.to_dict("rows")
+                       name = df.name.unique().tolist()
+                       options=[{'label':n, 'value':n} for n in name]
+                       return [data,columns,0,options]
+                       return print("Only other 'Admin' users can change access type to 'Admin'. Please contact your system administrator for details.")
+                   else:
+                       input_id=data[selected_rows[0]]['id']
+                       sqlinsert = "UPDATE users SET name=%s,date=%s,dept=%s,type=%s,login=%s WHERE id=%s"
+                       modifydatabase(sqlinsert, [user_name, user_date,user_dept,user_type,user_login,input_id])
+                       sql = "SELECT * FROM users"
+                       df = querydatafromdatabase(sql,[],["id","name","date","dept","type","login"])
+                       columns=[{"name": i, "id": i} for i in df.columns]
+                       data=df.to_dict("rows")
+                       name = df.name.unique().tolist()
+                       options=[{'label':n, 'value':n} for n in name]
+                       return [data,columns,0,options]
        elif eventid =="user-delete-button":
            if 1 not in user_mode:
                sql = "SELECT * FROM users"
