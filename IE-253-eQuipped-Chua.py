@@ -18,6 +18,7 @@ import pandas as pd
 import dash_table
 import calendar
 from dash.exceptions import PreventUpdate
+from flask import request
 
 
 def querydatafromdatabase(sql, values,dbcolumns):
@@ -1141,6 +1142,9 @@ layout2 = html.Div([
                                'borderRadius':5,
                                'height':42,'width':200,
                                'font-family':'minion', 'display':'inline-block','float':'right'}),
+    
+    dcc.ConfirmDialog(
+                            id='reg-confirm'),
 
     html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
                      style={'height':100,'display':'inline-block'}),
@@ -1203,16 +1207,26 @@ def display_page(pathname):
     
 # main menu callbacks
 @app.callback(
-    Output('url','pathname'),
+    [Output('url','pathname'),
+    Output('reg-confirm','displayed'),
+    Output('reg-confirm','message')],
     [
      Input('reg-button','n_clicks'),
      ]
     )
 def menu_output(reg_button):   
        if reg_button:
-           return '/register'
+           username = request.authorization['username']
+           # load user table
+           sql2 = "SELECT type,login FROM users"
+           df2 = querydatafromdatabase(sql2,[],["type","login"])
+           login2 = df2[df2['type']=="Admin"].login.unique().tolist()
+           if username in login2:
+               return ['/register',False, None]
+           else:
+               return ['/',True, "Sorry, only 'Admin' users are allowed access. Please contact your system administrator for details."]
        else:
-           return '/'
+           return ['/',False,None]
 
 # Tab callbacks
 @app.callback(Output('tabs-content', 'children'),
