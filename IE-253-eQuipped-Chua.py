@@ -1133,7 +1133,9 @@ report2_page = html.Div([
 app.layout = url_bar_and_content_div
 
 layout2 = html.Div([
-    html.Button(
+    
+                html.Div([
+                    html.Button(
                         id='reg-button',
                         n_clicks=0,
                         children='Manage User Access',
@@ -1143,25 +1145,24 @@ layout2 = html.Div([
                                'borderRadius':5,
                                'height':42,'width':200,
                                'font-family':'minion', 'display':'inline-block','float':'right'}),
-    
-    dcc.ConfirmDialog(
-                            id='reg-confirm'),
 
-    html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
+                html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
                      style={'height':100,'display':'inline-block'}),
-                html.Div([
-                    html.H1('WELCOME',
+                
+                    html.Div([html.H1('WELCOME',
                             style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir'}),
                     
                     html.H2('to e-Quipped Maintenance Manager',
                             style={'color':'rgb(0,123,255)',
-                                   'font-family':'avenir'}),            
+                                   'font-family':'avenir'}),    
+                    ],style={'display':'inline-block','margin-left':50}),
+                            
                         ],
-                        style={'display':'inline-block','margin-left':50}),
+                        style={}),
 
     html.Div([
-        dcc.Tabs(id='tabs', value='home'),children=[
+        dcc.Tabs(id='tabs', value='home', children=[
         dcc.Tab(label='Home', value='home',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18}),
         dcc.Tab(label='Notification', value='notif',style={'color':'rgb(0,123,255)',
@@ -1180,10 +1181,10 @@ layout2 = html.Div([
                                    'font-family':'avenir','fontSize':18}),
         dcc.Tab(label='Report 2', value='report2',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18})
-        ]
+        ]),
     
-    ]),
-    html.Div(id='tabs-content'),
+    ], style={}),
+    html.Div(id='tabs-content', style={}),
 
 ])
 
