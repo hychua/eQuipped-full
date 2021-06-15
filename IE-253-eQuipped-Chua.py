@@ -2281,9 +2281,10 @@ def user_choose_row2(selected_rows):
      Input('user-mode', 'value'),
      ],
     State('user-name', 'value'),
+    State('user-type','value'),
     State('user-dropdown','value'))
 def user_output_warining(user_submit_button,user_save_button,user_delete_button,user_mode,
-                   user_name,user_dropdown):
+                   user_name,user_type,user_dropdown):
    ctx = dash.callback_context
    if ctx.triggered:
        eventid = ctx.triggered[0]['prop_id'].split('.')[0]
@@ -2292,25 +2293,41 @@ def user_output_warining(user_submit_button,user_save_button,user_delete_button,
        elif eventid =="user-save-button":
            # Add Mode
            if 1 not in user_mode:
+               username = request.authorization['username']
                sql2 = "SELECT name as name FROM users"
                df2 = querydatafromdatabase(sql2,[],["name"])
                name2 = list(df2['name'])
+               login2 = df2[df2['type']=="Admin"].login.unique().tolist()
                if user_name in name2:
                    return [True,"There is already an entry with the same name.\nPlease choose a different scenario name."]
-               else:  
+               # if Admin user
+               elif username in login2:
                    return [False,None]
+               else:  
+                   if user_type == "Admin":
+                       return [True,"Only 'Admin' users can change user details of 'Admin'. Please contact your system administrator for details."]
+                   else:
+                       return [False,None]
            # Edit Mode
            else:
+               username = request.authorization['username']
                sql2 = "SELECT name as name FROM users"
                df2 = querydatafromdatabase(sql2,[],["name"])
                name2 = list(df2['name'])
+               login2 = df2[df2['type']=="Admin"].login.unique().tolist()
                if user_name in name2:  
                    if user_name == user_dropdown:
                        return [False, None]
                    else:
                        return [True,"There is already an entry with the same name.\nPlease choose a different scenario name."]
-               else:  
+               # if Admin user
+               elif username in login2:
                    return [False,None]
+               else:  
+                   if user_type == "Admin":
+                       return [True,"Only 'Admin' users can change user details of 'Admin'. Please contact your system administrator for details."]
+                   else:
+                       return [False,None]
        elif eventid =="user-delete-button":
            if 1 not in user_mode:     
                return [True,"Please enable 'Edit Mode' in order to delete."]
