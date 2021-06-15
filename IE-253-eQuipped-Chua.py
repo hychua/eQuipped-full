@@ -2323,7 +2323,7 @@ def user_output_warining(user_submit_button,user_save_button,user_delete_button,
                        return [False,None]
                else:
                    if user_type == "Admin":
-                       return [True,"Sorry, only 'Admin' users can add other 'Admin' users."]
+                       return [True,"Sorry, only 'Admin' users can edit other 'Admin' users."]
                    else:
                        return [False,None]
        elif eventid =="user-delete-button":
