@@ -1206,9 +1206,8 @@ def display_users_tab(pathname):
     df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
     login2 = df2[df2["type"=='Admin']].name.unique().tolist()
     if username in login2:
-        return {'display':'none'}
-    else:
-        raise PreventUpdate
+        if pathname == "/":
+            return {'display':'none'}
         
 
 # Index callbacks
