@@ -98,7 +98,7 @@ df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
 columns2=[{"name": i, "id": i} for i in df2.columns]
 data2=df2.to_dict("rows")
 name2 = df2.name.unique().tolist()
-login2 = df2[df2["type"=='Admin']].name.unique().tolist()
+login2 = df2[df2["type"]=='Admin'].name.unique().tolist()
 
 # load equipment table
 sql3 = "SELECT * FROM equipment"
