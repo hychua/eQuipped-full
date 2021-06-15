@@ -1183,10 +1183,9 @@ layout2 = html.Div([
         dcc.Tab(label='Report 2', value='report2',style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir','fontSize':18})
         ]),
-        
-        dcc.Dropdown(id='users-ind',value=username)
     
     ], style={}),
+    
     html.Div(id='tabs-content', style={}),
 
 ])
