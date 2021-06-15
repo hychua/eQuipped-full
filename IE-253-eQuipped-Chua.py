@@ -1183,7 +1183,6 @@ layout2 = html.Div([
         ]),
     
     ], style={}),
-    
     html.Div(id='tabs-content', style={}),
 
 ])
@@ -1197,10 +1196,9 @@ app.validation_layout = html.Div([
 
 # Index callbacks
 @app.callback(
-    [
     Output('page-content', 'children'),
-    ],
-    Input('url', 'pathname'),
+              
+    [Input('url', 'pathname'),]
      )
 def display_page(pathname):
     if pathname == "/register":
@@ -1230,12 +1228,10 @@ def menu_output(reg_button):
                return ['/',True, "Sorry, only 'Admin' users are allowed access. Please contact your system administrator for details."]
        else:
            return ['/',False,None]
-
+       
 # Tab callbacks
-@app.callback(
-    Output('tabs-content', 'children'),
-    Input('tabs', 'value')
-    )
+@app.callback(Output('tabs-content', 'children'),
+              Input('tabs', 'value'))
 def render_content(tab):
     if tab == 'home':
         return layout_index
