@@ -2214,7 +2214,6 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
            else:
                sql2 = "SELECT name as name FROM users"
                df2 = querydatafromdatabase(sql2,[],["name"])
-               df2 = pd.read_csv("users_table.csv")
                name2 = list(df2['name'])
                if user_name in name2:
                    if user_name == user_dropdown:
@@ -2318,7 +2317,6 @@ def user_clear(usersubmitmode, selected_rows,
                   sql = "SELECT * FROM users WHERE id =%s"
                   df = querydatafromdatabase(sql,[data[selected_rows[0]]['id']],
                                              ["id","name","date","dept","type","login"])       
-                  df = pd.read_csv("users_table.csv")
                           
                   return [df['name'][0],df['date'][0],df['dept'][0],
                           df['type'][0],df['login'][0]]    
@@ -2329,7 +2327,6 @@ def user_clear(usersubmitmode, selected_rows,
                 sql = "SELECT * FROM users WHERE id =%s"
                 df = querydatafromdatabase(sql,[data[selected_rows[0]]['id']],
                                            ["id","name","date","dept","type","login"])     
-                df = pd.read_csv("users_table.csv")
         
                 return [df['name'][0],df['date'][0],df['dept'][0],
                           df['type'][0],df['login'][0]]           
