@@ -67,9 +67,12 @@ auth = dash_auth.BasicAuth(
     VALID_USERNAME_PASSWORD_PAIRS
 )
 
+def serve_login():
+    return querydatafromdatabase(sql,[],["id","name","password"])
+
 # load login table
 sql = "SELECT * FROM login"
-df = querydatafromdatabase(sql,[],["id","name","password"])
+df = serve_login
 columns=[{"name": i, "id": i} for i in df.columns]
 data=df.to_dict("rows")
 name = df.name.unique().tolist()
@@ -183,20 +186,6 @@ registration_page = html.Div([
     html.Div(' ', style={'backgroundColor':'rgb(0,123,255)','height':42}),
     
     html.Div([
-        html.Button(
-                            id='login-submit-button',
-                            n_clicks=0,
-                            children='Refresh',
-                            style={'fontSize':14,
-                                   'color':'rgb(255,255,255)',
-                                   'backgroundColor':'rgb(0,123,255)',
-                                   'borderRadius':5,
-                                   'height':38},
-                            ),
-        html.Label("Please Press the Refresh button to begin.",
-                       style={'margin-left':10,'color':'rgb(0,123,255)',
-                               'font-family':'avenir'}),
-        
                 html.H1('User Access Management',
                 style={'color':'rgb(0,123,255)',
                                'font-family':'avenir'}),
@@ -207,7 +196,16 @@ registration_page = html.Div([
                     html.Label('Password:',
                       style={'font-weight':'bold','font-size':18}),
                     html.Br(),html.Br(),html.Br(),
-                    
+                    html.Button(
+                            id='login-submit-button',
+                            n_clicks=0,
+                            children='Refresh',
+                            style={'fontSize':14,
+                                   'color':'rgb(255,255,255)',
+                                   'backgroundColor':'rgb(0,123,255)',
+                                   'borderRadius':5,
+                                   'height':38},
+                            ),
                     ],style={'display':'inline-block','float':'left'}),
                          
                 
@@ -289,20 +287,6 @@ notification_page = html.Div([
         html.Div(' ', style={'backgroundColor':'rgb(0,123,255)','height':42}),
         
         html.Div([
-            html.Button(
-                        id='notif-submit-button',
-                        n_clicks=0,
-                        children='Refresh',
-                        style={'fontSize':14,
-                               'color':'rgb(255,255,255)',
-                               'backgroundColor':'rgb(0,123,255)',
-                               'borderRadius':5,
-                               'height':38},
-                        ),
-            html.Label("Please Press the Refresh button to begin.",
-                       style={'margin-left':10,'color':'rgb(0,123,255)',
-                               'font-family':'avenir'}),
-            
             html.H1('Maintenance Notifications',
                 style={'color':'rgb(0,123,255)',
                                'font-family':'avenir'}),
@@ -322,7 +306,16 @@ notification_page = html.Div([
                     html.Label('Requestor:',
                       style={'font-weight':'bold','font-size':18}),
                     html.Br(),html.Br(),html.Br(),
-                    
+                    html.Button(
+                        id='notif-submit-button',
+                        n_clicks=0,
+                        children='Refresh',
+                        style={'fontSize':14,
+                               'color':'rgb(255,255,255)',
+                               'backgroundColor':'rgb(0,123,255)',
+                               'borderRadius':5,
+                               'height':38},
+                        ),
 
                     ],style={'display':'inline-block','float':'left'}),
                          
@@ -420,20 +413,6 @@ order_page = html.Div([
         html.Div(' ', style={'backgroundColor':'rgb(0,123,255)','height':42}),
         
         html.Div([
-            html.Button(
-                        id='order-submit-button',
-                        n_clicks=0,
-                        children='Refresh',
-                        style={'fontSize':14,
-                               'color':'rgb(255,255,255)',
-                               'backgroundColor':'rgb(0,123,255)',
-                               'borderRadius':5,
-                               'height':38},
-                        ),
-            html.Label("Please Press the Refresh button to begin.",
-                       style={'margin-left':10,'color':'rgb(0,123,255)',
-                               'font-family':'avenir'}),
-            
             html.H1('Maintenance Orders',
                 style={'color':'rgb(0,123,255)',
                                'font-family':'avenir'}),
@@ -462,7 +441,16 @@ order_page = html.Div([
                     html.Label('Notification:',
                       style={'font-weight':'bold','font-size':18}),
                     html.Br(),html.Br(),html.Br(),
-                    
+                    html.Button(
+                        id='order-submit-button',
+                        n_clicks=0,
+                        children='Refresh',
+                        style={'fontSize':14,
+                               'color':'rgb(255,255,255)',
+                               'backgroundColor':'rgb(0,123,255)',
+                               'borderRadius':5,
+                               'height':38},
+                        ),
 
                     ],style={'display':'inline-block','float':'left'}),
                          
@@ -574,20 +562,6 @@ user_page = html.Div([
         html.Div(' ', style={'backgroundColor':'rgb(0,123,255)','height':42}),
         
          html.Div([
-             html.Button(
-                        id='user-submit-button',
-                        n_clicks=0,
-                        children='Refresh',
-                        style={'fontSize':14,
-                               'color':'rgb(255,255,255)',
-                               'backgroundColor':'rgb(0,123,255)',
-                               'borderRadius':5,
-                               'height':38},
-                        ),
-             html.Label("Please Press the Refresh button to begin.",
-                       style={'margin-left':10,'color':'rgb(0,123,255)',
-                               'font-family':'avenir'}),
-             
              html.H1('Users',
                 style={'color':'rgb(0,123,255)',
                                'font-family':'avenir'}),
@@ -607,7 +581,16 @@ user_page = html.Div([
                     html.Label('Username:',
                       style={'font-weight':'bold','font-size':18}),
                     html.Br(),html.Br(),html.Br(),
-                    
+                    html.Button(
+                        id='user-submit-button',
+                        n_clicks=0,
+                        children='Refresh',
+                        style={'fontSize':14,
+                               'color':'rgb(255,255,255)',
+                               'backgroundColor':'rgb(0,123,255)',
+                               'borderRadius':5,
+                               'height':38},
+                        ),
                     ],style={'display':'inline-block','float':'left'}),
                          
                 
@@ -702,21 +685,6 @@ user_page2 = html.Div([
         html.Div(' ', style={'backgroundColor':'rgb(0,123,255)','height':42}),
         
          html.Div([
-             
-             html.Button(
-                        id='user-submit-button',
-                        n_clicks=0,
-                        children='Refresh',
-                        style={'fontSize':14,
-                               'color':'rgb(255,255,255)',
-                               'backgroundColor':'rgb(0,123,255)',
-                               'borderRadius':5,
-                               'height':38},
-                        ),
-             html.Label("Please Press the Refresh button to begin.",
-                       style={'margin-left':10,'color':'rgb(0,123,255)',
-                               'font-family':'avenir'}),
-             
              html.H1('Users',
                 style={'color':'rgb(0,123,255)',
                                'font-family':'avenir'}),
@@ -736,7 +704,16 @@ user_page2 = html.Div([
                     html.Label('Username:',
                       style={'font-weight':'bold','font-size':18,'display':'none'}),
                     html.Br(),html.Br(),html.Br(),
-                    
+                    html.Button(
+                        id='user-submit-button',
+                        n_clicks=0,
+                        children='Refresh',
+                        style={'fontSize':14,
+                               'color':'rgb(255,255,255)',
+                               'backgroundColor':'rgb(0,123,255)',
+                               'borderRadius':5,
+                               'height':38},
+                        ),
                     ],style={'display':'inline-block','float':'left'}),
                          
                 
@@ -831,21 +808,6 @@ equipment_page = html.Div([
         html.Div(' ', style={'backgroundColor':'rgb(0,123,255)','height':42}),
         
         html.Div([
-            
-            html.Button(
-                        id='equi-submit-button',
-                        n_clicks=0,
-                        children='Refresh',
-                        style={'fontSize':14,
-                               'color':'rgb(255,255,255)',
-                               'backgroundColor':'rgb(0,123,255)',
-                               'borderRadius':5,
-                               'height':38},
-                        ),
-            html.Label("Please Press the Refresh button to begin.",
-                       style={'margin-left':10,'color':'rgb(0,123,255)',
-                               'font-family':'avenir'}),
-            
             html.H1('Equipment',
                 style={'color':'rgb(0,123,255)',
                                'font-family':'avenir'}),
@@ -868,7 +830,16 @@ equipment_page = html.Div([
                     html.Label('Location Installed:',
                       style={'font-weight':'bold','font-size':18}),
                     html.Br(),html.Br(),html.Br(),
-                    
+                    html.Button(
+                        id='equi-submit-button',
+                        n_clicks=0,
+                        children='Refresh',
+                        style={'fontSize':14,
+                               'color':'rgb(255,255,255)',
+                               'backgroundColor':'rgb(0,123,255)',
+                               'borderRadius':5,
+                               'height':38},
+                        ),
                     ],style={'display':'inline-block','float':'left'}),
                          
                 
@@ -971,7 +942,11 @@ damage_page = html.Div([
     html.Div(' ', style={'backgroundColor':'rgb(0,123,255)','height':42}),
     
     html.Div([
-        html.Button(
+                html.H1('Damage',
+                style={'color':'rgb(0,123,255)',
+                               'font-family':'avenir'}),
+                html.Br(),
+                html.Button(
                         id='damage-submit-button',
                         n_clicks=0,
                         children='Refresh',
@@ -981,16 +956,6 @@ damage_page = html.Div([
                                'borderRadius':5,
                                'height':38},
                         ),
-        html.Label("Please Press the Refresh button to begin.",
-                       style={'margin-left':10,'color':'rgb(0,123,255)',
-                               'font-family':'avenir'}),
-            
-        
-                html.H1('Damage',
-                style={'color':'rgb(0,123,255)',
-                               'font-family':'avenir'}),
-                html.Br(),
-                
                 html.Div([
                     html.Label('Damage Text:',
                       style={'font-weight':'bold','font-size':18})
@@ -1066,7 +1031,11 @@ location_page = html.Div([
     html.Div(' ', style={'backgroundColor':'rgb(0,123,255)','height':42}),
     
     html.Div([
-        html.Button(
+                html.H1('Location',
+                style={'color':'rgb(0,123,255)',
+                               'font-family':'avenir'}),
+                html.Br(),
+                html.Button(
                         id='loc-submit-button',
                         n_clicks=0,
                         children='Refresh',
@@ -1076,16 +1045,6 @@ location_page = html.Div([
                                'borderRadius':5,
                                'height':38},
                         ),
-        html.Label("Please Press the Refresh button to begin.",
-                       style={'margin-left':10,'color':'rgb(0,123,255)',
-                               'font-family':'avenir'}),
-            
-        
-                html.H1('Location',
-                style={'color':'rgb(0,123,255)',
-                               'font-family':'avenir'}),
-                html.Br(),
-                
                 html.Div([
                     html.Label('Location Text:',
                       style={'font-weight':'bold','font-size':18})
