@@ -67,12 +67,9 @@ auth = dash_auth.BasicAuth(
     VALID_USERNAME_PASSWORD_PAIRS
 )
 
-def serve_login():
-    return querydatafromdatabase(sql,[],["id","name","password"])
-
 # load login table
 sql = "SELECT * FROM login"
-df = serve_login
+df = querydatafromdatabase(sql,[],["id","name","password"])
 columns=[{"name": i, "id": i} for i in df.columns]
 data=df.to_dict("rows")
 name = df.name.unique().tolist()
@@ -1513,7 +1510,13 @@ def login_output(login_submit_button,login_save_button,login_delete_button,login
            options=[{'label':n, 'value':n} for n in name]
            return [data,columns,2,options]
    else:
-      raise PreventUpdate
+      sql = "SELECT * FROM login"
+      df = querydatafromdatabase(sql,[],["id","name","password"])
+      columns=[{"name": i, "id": i} for i in df.columns]
+      data=df.to_dict("rows")
+      name = df.name.unique().tolist()
+      options=[{'label':n, 'value':n} for n in name]
+      return [data,columns,2,options]
 
 
 @app.callback(
