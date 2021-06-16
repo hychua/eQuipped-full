@@ -201,7 +201,7 @@ registration_page = html.Div([
                                    'color':'rgb(255,255,255)',
                                    'backgroundColor':'rgb(0,123,255)',
                                    'borderRadius':5,
-                                   'height':38},
+                                   'height':38,'display':'none'},
                             ),
                     ],style={'display':'inline-block','float':'left'}),
                          
@@ -311,7 +311,7 @@ notification_page = html.Div([
                                'color':'rgb(255,255,255)',
                                'backgroundColor':'rgb(0,123,255)',
                                'borderRadius':5,
-                               'height':38},
+                               'height':38,'display':'none'},
                         ),
 
                     ],style={'display':'inline-block','float':'left'}),
@@ -446,7 +446,7 @@ order_page = html.Div([
                                'color':'rgb(255,255,255)',
                                'backgroundColor':'rgb(0,123,255)',
                                'borderRadius':5,
-                               'height':38},
+                               'height':38,'display':'none'},
                         ),
 
                     ],style={'display':'inline-block','float':'left'}),
@@ -586,7 +586,7 @@ user_page = html.Div([
                                'color':'rgb(255,255,255)',
                                'backgroundColor':'rgb(0,123,255)',
                                'borderRadius':5,
-                               'height':38},
+                               'height':38,'display':'none'},
                         ),
                     ],style={'display':'inline-block','float':'left'}),
                          
@@ -709,7 +709,7 @@ user_page2 = html.Div([
                                'color':'rgb(255,255,255)',
                                'backgroundColor':'rgb(0,123,255)',
                                'borderRadius':5,
-                               'height':38},
+                               'height':38,'display':'none'},
                         ),
                     ],style={'display':'inline-block','float':'left'}),
                          
@@ -835,7 +835,7 @@ equipment_page = html.Div([
                                'color':'rgb(255,255,255)',
                                'backgroundColor':'rgb(0,123,255)',
                                'borderRadius':5,
-                               'height':38},
+                               'height':38, 'display':'none'},
                         ),
                     ],style={'display':'inline-block','float':'left'}),
                          
@@ -951,7 +951,7 @@ damage_page = html.Div([
                                'color':'rgb(255,255,255)',
                                'backgroundColor':'rgb(0,123,255)',
                                'borderRadius':5,
-                               'height':38},
+                               'height':38,'display':'none'},
                         ),
                 html.Div([
                     html.Label('Damage Text:',
@@ -1040,7 +1040,7 @@ location_page = html.Div([
                                'color':'rgb(255,255,255)',
                                'backgroundColor':'rgb(0,123,255)',
                                'borderRadius':5,
-                               'height':38},
+                               'height':38,'display':'none'},
                         ),
                 html.Div([
                     html.Label('Location Text:',
@@ -1757,7 +1757,13 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
            return [data,columns,2,options]
 
    else:
-      raise PreventUpdate
+      sql = "SELECT * FROM notification"
+      df = querydatafromdatabase(sql,[],["id","name","date","priority","equi","users"])
+      columns=[{"name": i, "id": i} for i in df.columns]
+      data=df.to_dict("rows")
+      name = df.name.unique().tolist()
+      options=[{'label':n, 'value':n} for n in name]
+      return [data,columns,2,options]
 
 
 @app.callback(
@@ -2020,7 +2026,14 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
            return [data,columns,2,options]
 
    else:
-      raise PreventUpdate
+           sql = "SELECT * FROM orders"
+           df = querydatafromdatabase(sql,[],["id","name","type","date","hours",
+                                              "damage","equi","emp","notif"])
+           columns=[{"name": i, "id": i} for i in df.columns]
+           data=df.to_dict("rows")
+           name = df.name.unique().tolist()
+           options=[{'label':n, 'value':n} for n in name]
+           return [data,columns,2,options]
 
 
 @app.callback(
@@ -2283,7 +2296,13 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
            return [data,columns,2,options]
 
    else:
-      raise PreventUpdate
+           sql = "SELECT * FROM users"
+           df = querydatafromdatabase(sql,[],["id","name","date","dept","type","login"])
+           columns=[{"name": i, "id": i} for i in df.columns]
+           data=df.to_dict("rows")
+           name = df.name.unique().tolist()
+           options=[{'label':n, 'value':n} for n in name]
+           return [data,columns,2,options]
 
 
 @app.callback(
@@ -2544,7 +2563,14 @@ def equi_output(equi_submit_button,equi_save_button,equi_delete_button,
            return [data,columns,2,options]
 
    else:
-      raise PreventUpdate
+           sql = "SELECT * FROM equipment"
+           df = querydatafromdatabase(sql,[],["id","name","brand","model",
+                                              "date","cost","loc"])
+           columns=[{"name": i, "id": i} for i in df.columns]
+           data=df.to_dict("rows")
+           name = df.name.unique().tolist()
+           options=[{'label':n, 'value':n} for n in name]
+           return [data,columns,2,options]
 
 
 @app.callback(
@@ -2797,7 +2823,13 @@ def damage_output(damage_submit_button,damage_save_button,damage_delete_button,d
            return [data,columns,2,options]
 
    else:
-      raise PreventUpdate
+           sql = "SELECT * FROM damage"
+           df = querydatafromdatabase(sql,[],["id","name"])
+           columns=[{"name": i, "id": i} for i in df.columns]
+           data=df.to_dict("rows")
+           name = df.name.unique().tolist()
+           options=[{'label':n, 'value':n} for n in name]
+           return [data,columns,2,options]
 
 
 @app.callback(
@@ -3031,7 +3063,13 @@ def loc_output(loc_submit_button,loc_save_button,loc_delete_button,loc_mode,
            return [data,columns,2,options]
 
    else:
-      raise PreventUpdate
+           sql = "SELECT * FROM location"
+           df = querydatafromdatabase(sql,[],["id","name"])
+           columns=[{"name": i, "id": i} for i in df.columns]
+           data=df.to_dict("rows")
+           name = df.name.unique().tolist()
+           options=[{'label':n, 'value':n} for n in name]
+           return [data,columns,2,options]
 
 
 @app.callback(
