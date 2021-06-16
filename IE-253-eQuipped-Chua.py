@@ -144,7 +144,7 @@ layout_index = html.Div([
                                    'font-family':'avenir',}),      
         html.H3("Here is a brief guide of how to use each tab:",style={'color':'rgb(0,123,255)',
                                    'font-family':'minion'}),
-        html.H4("Transacitonal Data:"),
+        html.H4("Transactional Data:"),
         html.Div([
             html.P("> Notification: usually created by the operator; this is created to inform maintenance of a malfunction in the machine.",style={
                                    'font-family':'minion'}),
