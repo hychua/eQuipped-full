@@ -1660,11 +1660,7 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
                name2 = list(df2['name'])
                
                if notif_name in name2: 
-                   sql = "SELECT * FROM notification"
-                   df = querydatafromdatabase(sql,[],["id","name","date","priority","equi","users"])
-                   columns=[{"name": i, "id": i} for i in df.columns]
-                   data=df.to_dict("rows")
-                   name = df.name.unique().tolist()
+
                    options=[{'label':n, 'value':n} for n in name]
                    # load user table
                    sql2 = "SELECT * FROM users"
