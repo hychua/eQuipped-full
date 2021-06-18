@@ -67,13 +67,6 @@ auth = dash_auth.BasicAuth(
     VALID_USERNAME_PASSWORD_PAIRS
 )
 
-# load login table
-sql = "SELECT * FROM login"
-df = querydatafromdatabase(sql,[],["id","name","password"])
-columns=[{"name": i, "id": i} for i in df.columns]
-data=df.to_dict("rows")
-name = df.name.unique().tolist()
-
 # load notification table
 sql0 = "SELECT * FROM notification"
 df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
@@ -267,8 +260,6 @@ registration_page = html.Div([
         dash_table.DataTable(
         id='logintable',
         row_selectable='single',
-        columns=columns,
-        data=data,
         style_cell={'font-family':'minion'}
         ),
         dcc.Input(id='loginsubmitmode',
@@ -395,8 +386,6 @@ notification_page = html.Div([
         dash_table.DataTable(
         id='notiftable',
         row_selectable='single',
-        columns=columns0,
-        data=data0,
         style_cell={'font-family':'minion'}
         ),
         dcc.Input(id='notifsubmitmode',
@@ -544,8 +533,6 @@ order_page = html.Div([
         dash_table.DataTable(
         id='ordertable',
         row_selectable='single',
-        columns=columns1,
-        data=data1,
         style_cell={'font-family':'minion'}
         ),
         dcc.Input(id='ordersubmitmode',
@@ -667,8 +654,6 @@ user_page = html.Div([
         dash_table.DataTable(
         id='usertable',
         row_selectable='single',
-        columns=columns2,
-        data=data2,
         style_cell={'font-family':'minion'}
         ),
         dcc.Input(id='usersubmitmode',
@@ -790,8 +775,6 @@ user_page2 = html.Div([
         dash_table.DataTable(
         id='usertable',
         row_selectable='single',
-        columns=columns2,
-        data=data2,
         style_cell={'font-family':'minion'}
         ),
         dcc.Input(id='usersubmitmode',
@@ -920,8 +903,6 @@ equipment_page = html.Div([
         html.Div([dash_table.DataTable(
         id='equitable',
         row_selectable='single',
-        columns=columns3,
-        data=data3,
         style_cell={'font-family':'minion'}
         ),
         dcc.Input(id='equisubmitmode',
@@ -1013,8 +994,6 @@ damage_page = html.Div([
         dash_table.DataTable(
         id='damagetable',
         row_selectable='single',
-        columns=columns4,
-        data=data4,
         style_cell={'font-family':'minion'}
         ),
         dcc.Input(id='damagesubmitmode',
@@ -1102,8 +1081,6 @@ location_page = html.Div([
         dash_table.DataTable(
         id='loctable',
         row_selectable='single',
-        columns=columns5,
-        data=data5,
         style_cell={'font-family':'minion'}
         ),
         dcc.Input(id='locsubmitmode',
@@ -1636,7 +1613,7 @@ def login_output_warning(login_submit_button,login_save_button,login_delete_butt
      Output('notiftable', 'data'),
      Output('notiftable', 'columns'),
      Output('notifsubmitmode','value'),
-     Output('notif-dropdown','options')
+     Output('notif-dropdown','options'),
      ],
     [Input('notif-submit-button', 'n_clicks'),
      Input('notif-save-button', 'n_clicks'),
