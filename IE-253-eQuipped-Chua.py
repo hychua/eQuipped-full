@@ -3661,13 +3661,14 @@ def generate_chart2(n_clicks, report1_equi):
     df1_equi = df1[df1["equi"] == report1_equi]
     ls1 = df1_equi.damage.tolist()
     
-    df41 = pd.DataFrame(ls1, columns = ['damage'])
+    ls41 = ls4 + ls1
+    df41 = pd.DataFrame(ls41, columns = ['damage'])
     
     vcount = df41.value_counts()
     vcount_list = vcount.tolist()
     
     labels = ls4
-    values = vcount_list
+    values = vcount_list - 1
     colors = []
     
     fig = go.Figure(data=[go.Pie(labels=labels, values=values,
