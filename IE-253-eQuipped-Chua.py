@@ -3668,7 +3668,7 @@ def generate_chart2(n_clicks, report1_equi):
     vcount_list = vcount.tolist()
     
     labels = ls4
-    values = vcount_list - 1
+    values = [a - 1 for a in vcount_list]
     colors = []
     
     fig = go.Figure(data=[go.Pie(labels=labels, values=values,
