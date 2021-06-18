@@ -324,13 +324,12 @@ notification_page = html.Div([
                     html.Br(),html.Br(),
                     dcc.Dropdown(
                         id='notif-equi',
-                        options=[{'label':n, 'value':n} for n in name3],
+                        options=[{'label':n, 'value':n} for n in name3],                        
                         style={'width':200},
                     ),
                     html.Br(),
                     dcc.Dropdown(
                         id='notif-user',
-                        options=[{'label':n, 'value':n} for n in name2],
                         style={'width':200},
                     ),
                     html.Br(),html.Br(),
@@ -1614,6 +1613,9 @@ def login_output_warning(login_submit_button,login_save_button,login_delete_butt
      Output('notiftable', 'columns'),
      Output('notifsubmitmode','value'),
      Output('notif-dropdown','options'),
+     # notification dropdowns
+     Output('notif-equi', 'options'),
+     Output('notif-user', 'options'),
      ],
     [Input('notif-submit-button', 'n_clicks'),
      Input('notif-save-button', 'n_clicks'),
@@ -1643,15 +1645,43 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
            data=df.to_dict("rows")
            name = df.name.unique().tolist()
            options=[{'label':n, 'value':n} for n in name]
-           return [data,columns,2,options]
+           # load user table
+           sql2 = "SELECT * FROM users"
+           df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+           name2 = df2.name.unique().tolist()
+           options2=[{'label':n, 'value':n} for n in name2]
+           # load equipment table
+           sql3 = "SELECT * FROM equipment"
+           df3 = querydatafromdatabase(sql3,[],["id","name","brand","model",
+                                                "date","cost","loc"])
+           name3 = df3.name.unique().tolist()
+           options3=[{'label':n, 'value':n} for n in name3]
+           return [data,columns,2,options,options3,options2]
        elif eventid =="notif-save-button":
            # Add Mode
            if 1 not in notif_mode:
+               sql = "SELECT * FROM notification"
+               df = querydatafromdatabase(sql,[],["id","name","date","priority","equi","users"])
+               columns=[{"name": i, "id": i} for i in df.columns]
+               data=df.to_dict("rows")
+               name = df.name.unique().tolist()
+               options=[{'label':n, 'value':n} for n in name]
                sql2 = "SELECT name as name FROM notification"
                df2 = querydatafromdatabase(sql2,[],["name"])
                name2 = list(df2['name'])
+               # load user table
+               sql2 = "SELECT * FROM users"
+               df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+               name2 = df2.name.unique().tolist()
+               options2=[{'label':n, 'value':n} for n in name2]
+               # load equipment table
+               sql3 = "SELECT * FROM equipment"
+               df3 = querydatafromdatabase(sql3,[],["id","name","brand","model",
+                                                    "date","cost","loc"])
+               name3 = df3.name.unique().tolist()
+               options3=[{'label':n, 'value':n} for n in name3]
                if notif_name in name2: 
-                   return [data,columns,0,options]
+                   return [data,columns,0,options,options3,options2]
                    return print("There is already an entry with the same name.")
                else:
                    sql = "SELECT max(id) as id FROM notification"
@@ -1665,7 +1695,18 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
                    data=df.to_dict("rows")
                    name = df.name.unique().tolist()
                    options=[{'label':n, 'value':n} for n in name]
-                   return [data,columns,0,options]
+                   # load user table
+                   sql2 = "SELECT * FROM users"
+                   df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+                   name2 = df2.name.unique().tolist()
+                   options2=[{'label':n, 'value':n} for n in name2]
+                   # load equipment table
+                   sql3 = "SELECT * FROM equipment"
+                   df3 = querydatafromdatabase(sql3,[],["id","name","brand","model",
+                                                        "date","cost","loc"])
+                   name3 = df3.name.unique().tolist()
+                   options3=[{'label':n, 'value':n} for n in name3]
+                   return [data,columns,0,options,options3,options2]
            # Edit Mode
            else:
                sql2 = "SELECT name as name FROM notification"
@@ -1682,7 +1723,18 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
                        data=df.to_dict("rows")
                        name = df.name.unique().tolist()
                        options=[{'label':n, 'value':n} for n in name]
-                       return [data,columns,0,options]
+                       # load user table
+                       sql2 = "SELECT * FROM users"
+                       df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+                       name2 = df2.name.unique().tolist()
+                       options2=[{'label':n, 'value':n} for n in name2]
+                       # load equipment table
+                       sql3 = "SELECT * FROM equipment"
+                       df3 = querydatafromdatabase(sql3,[],["id","name","brand","model",
+                                                            "date","cost","loc"])
+                       name3 = df3.name.unique().tolist()
+                       options3=[{'label':n, 'value':n} for n in name3]
+                       return [data,columns,0,options,options3,options2]
                    else:
                        sql = "SELECT * FROM notification"
                        df = querydatafromdatabase(sql,[],["id","name","date","priority","equi","users"])
@@ -1690,7 +1742,18 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
                        data=df.to_dict("rows")
                        name = df.name.unique().tolist()
                        options=[{'label':n, 'value':n} for n in name]
-                       return [data,columns,0,options]
+                       # load user table
+                       sql2 = "SELECT * FROM users"
+                       df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+                       name2 = df2.name.unique().tolist()
+                       options2=[{'label':n, 'value':n} for n in name2]
+                       # load equipment table
+                       sql3 = "SELECT * FROM equipment"
+                       df3 = querydatafromdatabase(sql3,[],["id","name","brand","model",
+                                                            "date","cost","loc"])
+                       name3 = df3.name.unique().tolist()
+                       options3=[{'label':n, 'value':n} for n in name3]
+                       return [data,columns,0,options,options3,options2]
                        return print("There is already an entry with the same name.")
                else:
                    input_id=data[selected_rows[0]]['id']
@@ -1702,7 +1765,18 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
                    data=df.to_dict("rows")
                    name = df.name.unique().tolist()
                    options=[{'label':n, 'value':n} for n in name]
-                   return [data,columns,0,options]
+                   # load user table
+                   sql2 = "SELECT * FROM users"
+                   df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+                   name2 = df2.name.unique().tolist()
+                   options2=[{'label':n, 'value':n} for n in name2]
+                   # load equipment table
+                   sql3 = "SELECT * FROM equipment"
+                   df3 = querydatafromdatabase(sql3,[],["id","name","brand","model",
+                                                        "date","cost","loc"])
+                   name3 = df3.name.unique().tolist()
+                   options3=[{'label':n, 'value':n} for n in name3]
+                   return [data,columns,0,options,options3,options2]
        elif eventid =="notif-delete-button":
            if 1 not in notif_mode:
                sql = "SELECT * FROM notification"
@@ -1711,7 +1785,18 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
                data=df.to_dict("rows")
                name = df.name.unique().tolist()
                options=[{'label':n, 'value':n} for n in name]
-               return [data,columns,0,options]
+               # load user table
+               sql2 = "SELECT * FROM users"
+               df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+               name2 = df2.name.unique().tolist()
+               options2=[{'label':n, 'value':n} for n in name2]
+               # load equipment table
+               sql3 = "SELECT * FROM equipment"
+               df3 = querydatafromdatabase(sql3,[],["id","name","brand","model",
+                                                    "date","cost","loc"])
+               name3 = df3.name.unique().tolist()
+               options3=[{'label':n, 'value':n} for n in name3]
+               return [data,columns,0,options,options3,options2]
                return print("Please enable 'Edit Mode' in order to delete.")
            else:
                input_id=data[selected_rows[0]]['id']
@@ -1723,7 +1808,18 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
                data=df.to_dict("rows")
                name = df.name.unique().tolist()
                options=[{'label':n, 'value':n} for n in name]
-               return [data,columns,0,options]        
+               # load user table
+               sql2 = "SELECT * FROM users"
+               df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+               name2 = df2.name.unique().tolist()
+               options2=[{'label':n, 'value':n} for n in name2]
+               # load equipment table
+               sql3 = "SELECT * FROM equipment"
+               df3 = querydatafromdatabase(sql3,[],["id","name","brand","model",
+                                                    "date","cost","loc"])
+               name3 = df3.name.unique().tolist()
+               options3=[{'label':n, 'value':n} for n in name3]
+               return [data,columns,0,options,options3,options2]        
        elif eventid =="notif-mode":
            sql = "SELECT * FROM notification"
            df = querydatafromdatabase(sql,[],["id","name","date","priority","equi","users"])
@@ -1731,7 +1827,18 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
            data=df.to_dict("rows")
            name = df.name.unique().tolist()
            options=[{'label':n, 'value':n} for n in name]
-           return [data,columns,2,options]
+           # load user table
+           sql2 = "SELECT * FROM users"
+           df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+           name2 = df2.name.unique().tolist()
+           options2=[{'label':n, 'value':n} for n in name2]
+           # load equipment table
+           sql3 = "SELECT * FROM equipment"
+           df3 = querydatafromdatabase(sql3,[],["id","name","brand","model",
+                                                "date","cost","loc"])
+           name3 = df3.name.unique().tolist()
+           options3=[{'label':n, 'value':n} for n in name3]
+           return [data,columns,2,options,options3,options2]
 
    else:
       sql = "SELECT * FROM notification"
@@ -1740,7 +1847,18 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
       data=df.to_dict("rows")
       name = df.name.unique().tolist()
       options=[{'label':n, 'value':n} for n in name]
-      return [data,columns,2,options]
+      # load user table
+      sql2 = "SELECT * FROM users"
+      df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+      name2 = df2.name.unique().tolist()
+      options2=[{'label':n, 'value':n} for n in name2]
+      # load equipment table
+      sql3 = "SELECT * FROM equipment"
+      df3 = querydatafromdatabase(sql3,[],["id","name","brand","model",
+                                                "date","cost","loc"])
+      name3 = df3.name.unique().tolist()
+      options3=[{'label':n, 'value':n} for n in name3]
+      return [data,columns,2,options,options3,options2]
 
 
 @app.callback(
