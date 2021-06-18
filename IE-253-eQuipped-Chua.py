@@ -535,6 +535,7 @@ order_page = html.Div([
 
 ])
 
+# admin users screen
 user_page = html.Div([
     dcc.ConfirmDialog(id='user-confirm'),
         html.Div(' ', style={'backgroundColor':'rgb(0,123,255)','height':42}),
@@ -655,6 +656,7 @@ user_page = html.Div([
          
         ])
 
+# non-admin users screen
 user_page2 = html.Div([
     dcc.ConfirmDialog(id='user-confirm'),
         html.Div(' ', style={'backgroundColor':'rgb(0,123,255)','height':42}),
@@ -704,7 +706,7 @@ user_page2 = html.Div([
                               style={'width':200}),
                     html.Br(),
                     dcc.Dropdown(id='user-type',
-                                 options=[{'label':'Admin', 'value':'Admin'},
+                                 options=[
                                           {'label':'Operator', 'value':'Operator'},
                                           {'label':'Technician', 'value':'Technician'}],
                               style={'width':200}),
