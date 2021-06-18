@@ -2027,7 +2027,7 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
            # load notification table
            sql0 = "SELECT * FROM notification"
            df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
-           name0 = df0.name.unique().tolist()
+           name0 = df0.id.unique().tolist()
            options0=[{'label':n, 'value':n} for n,m in name0]
             
            # load user table
@@ -2067,7 +2067,7 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                    # load notification table
                    sql0 = "SELECT * FROM notification"
                    df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
-                   name0 = df0.name.unique().tolist()
+                   name0 = df0.id.unique().tolist()
                    options0=[{'label':n, 'value':n} for n,m in name0]
                     
                    # load user table
@@ -2106,7 +2106,7 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                        # load notification table
                        sql0 = "SELECT * FROM notification"
                        df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
-                       name0 = df0.name.unique().tolist()
+                       name0 = df0.id.unique().tolist()
                        options0=[{'label':n, 'value':n} for n,m in name0]
                         
                        # load user table
@@ -2148,7 +2148,7 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                        # load notification table
                        sql0 = "SELECT * FROM notification"
                        df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
-                       name0 = df0.name.unique().tolist()
+                       name0 = df0.id.unique().tolist()
                        options0=[{'label':n, 'value':n} for n,m in name0]
                         
                        # load user table
@@ -2181,7 +2181,7 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                        # load notification table
                        sql0 = "SELECT * FROM notification"
                        df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
-                       name0 = df0.name.unique().tolist()
+                       name0 = df0.id.unique().tolist()
                        options0=[{'label':n, 'value':n} for n,m in name0]
                         
                        # load user table
@@ -2218,7 +2218,7 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                    # load notification table
                    sql0 = "SELECT * FROM notification"
                    df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
-                   name0 = df0.name.unique().tolist()
+                   name0 = df0.id.unique().tolist()
                    options0=[{'label':n, 'value':n} for n,m in name0]
                     
                    # load user table
@@ -2252,7 +2252,7 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                # load notification table
                sql0 = "SELECT * FROM notification"
                df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
-               name0 = df0.name.unique().tolist()
+               name0 = df0.id.unique().tolist()
                options0=[{'label':n, 'value':n} for n,m in name0]
                 
                # load user table
@@ -2289,7 +2289,7 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                # load notification table
                sql0 = "SELECT * FROM notification"
                df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
-               name0 = df0.name.unique().tolist()
+               name0 = df0.id.unique().tolist()
                options0=[{'label':n, 'value':n} for n,m in name0]
                 
                # load user table
@@ -2322,7 +2322,7 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
            # load notification table
            sql0 = "SELECT * FROM notification"
            df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
-           name0 = df0.name.unique().tolist()
+           name0 = df0.id.unique().tolist()
            options0=[{'label':n, 'value':n} for n,m in name0]
             
            # load user table
@@ -2356,7 +2356,7 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
            # load notification table
            sql0 = "SELECT * FROM notification"
            df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
-           name0 = df0.name.unique().tolist()
+           name0 = df0.id.unique().tolist()
            options0=[{'label':n, 'value':n} for n,m in name0]
             
            # load user table
