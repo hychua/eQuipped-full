@@ -457,19 +457,16 @@ order_page = html.Div([
                     html.Br(),html.Br(),
                     dcc.Dropdown(
                         id='order-damage',
-                        options=[{'label':n, 'value':n} for n in name4],
                         style={'width':200},
                     ),
                     html.Br(),
                     dcc.Dropdown(
                         id='order-equi',
-                        options=[{'label':n, 'value':n} for n in name3],
                         style={'width':200},
                     ),
                     html.Br(),
                     dcc.Dropdown(
                         id='order-emp',
-                        options=[{'label':n, 'value':n} for n in name2],
                         style={'width':200},
                     ),
                     html.Br(),
@@ -801,7 +798,7 @@ equipment_page = html.Div([
                     html.Label('Date Acquired:',
                       style={'font-weight':'bold','font-size':18}),
                     html.Br(),html.Br(),
-                    html.Label('Acquisition Cost:',
+                    html.Label('Acquisition Cost (Php):',
                       style={'font-weight':'bold','font-size':18}),
                     html.Br(),html.Br(),
                     html.Label('Location Installed:',
@@ -1987,7 +1984,11 @@ def notif_output_warning(notif_submit_button,notif_save_button,notif_delete_butt
      Output('ordertable', 'data'),
      Output('ordertable', 'columns'),
      Output('ordersubmitmode','value'),
-     Output('order-dropdown','options')
+     Output('order-dropdown','options'),
+     # orders dropdowns
+     Output('order-damage','options'),
+     Output('order-equi','options'),
+     Output('order-emp','options')
      ],
     [Input('order-submit-button', 'n_clicks'),
      Input('order-save-button', 'n_clicks'),
@@ -2022,7 +2023,25 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
            data=df.to_dict("rows")
            name = df.name.unique().tolist()
            options=[{'label':n, 'value':n} for n in name]
-           return [data,columns,2,options]
+           # load user table
+           sql2 = "SELECT * FROM users"
+           df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+           name2 = df2.name.unique().tolist()
+           options2 =[{'label':n, 'value':n} for n in name2]
+            
+           # load equipment table
+           sql3 = "SELECT * FROM equipment"
+           df3 = querydatafromdatabase(sql3,[],["id","name","brand","model",
+                                                "date","cost","loc"])
+           name3 = df3.name.unique().tolist()
+           options3=[{'label':n, 'value':n} for n in name3]
+            
+           # load damage table
+           sql4 = "SELECT * FROM damage"
+           df4 = querydatafromdatabase(sql4,[],["id","name"])
+           name4 = df4.name.unique().tolist()
+           options4=[{'label':n, 'value':n} for n in name4]
+           return [data,columns,2,options,options4,options3,options2]
        elif eventid =="order-save-button":
            # Add Mode
            if 1 not in order_mode:
@@ -2030,7 +2049,25 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                df2 = querydatafromdatabase(sql2,[],["name"])
                name2 = list(df2['name'])
                if order_name in name2: 
-                   return [data,columns,0,options]
+                   # load user table
+                   sql2 = "SELECT * FROM users"
+                   df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+                   name2 = df2.name.unique().tolist()
+                   options2 =[{'label':n, 'value':n} for n in name2]
+                    
+                   # load equipment table
+                   sql3 = "SELECT * FROM equipment"
+                   df3 = querydatafromdatabase(sql3,[],["id","name","brand","model",
+                                                        "date","cost","loc"])
+                   name3 = df3.name.unique().tolist()
+                   options3=[{'label':n, 'value':n} for n in name3]
+                    
+                   # load damage table
+                   sql4 = "SELECT * FROM damage"
+                   df4 = querydatafromdatabase(sql4,[],["id","name"])
+                   name4 = df4.name.unique().tolist()
+                   options4=[{'label':n, 'value':n} for n in name4]
+                   return [data,columns,0,options,options4,options3,options2]
                    return print("There is already an entry with the same name.")
                else:
                    sql = "SELECT max(id) as id FROM orders"
@@ -2045,7 +2082,25 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                    data=df.to_dict("rows")
                    name = df.name.unique().tolist()
                    options=[{'label':n, 'value':n} for n in name]
-                   return [data,columns,0,options]
+                   # load user table
+                   sql2 = "SELECT * FROM users"
+                   df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+                   name2 = df2.name.unique().tolist()
+                   options2 =[{'label':n, 'value':n} for n in name2]
+                    
+                   # load equipment table
+                   sql3 = "SELECT * FROM equipment"
+                   df3 = querydatafromdatabase(sql3,[],["id","name","brand","model",
+                                                        "date","cost","loc"])
+                   name3 = df3.name.unique().tolist()
+                   options3=[{'label':n, 'value':n} for n in name3]
+                    
+                   # load damage table
+                   sql4 = "SELECT * FROM damage"
+                   df4 = querydatafromdatabase(sql4,[],["id","name"])
+                   name4 = df4.name.unique().tolist()
+                   options4=[{'label':n, 'value':n} for n in name4] 
+                   return [data,columns,0,options,options4,options3,options2]
            # Edit Mode
            else:
                sql2 = "SELECT name as name FROM orders"
@@ -2063,7 +2118,25 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                        data=df.to_dict("rows")
                        name = df.name.unique().tolist()
                        options=[{'label':n, 'value':n} for n in name]
-                       return [data,columns,0,options]
+                       # load user table
+                       sql2 = "SELECT * FROM users"
+                       df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+                       name2 = df2.name.unique().tolist()
+                       options2 =[{'label':n, 'value':n} for n in name2]
+                        
+                       # load equipment table
+                       sql3 = "SELECT * FROM equipment"
+                       df3 = querydatafromdatabase(sql3,[],["id","name","brand","model",
+                                                            "date","cost","loc"])
+                       name3 = df3.name.unique().tolist()
+                       options3=[{'label':n, 'value':n} for n in name3]
+                        
+                       # load damage table
+                       sql4 = "SELECT * FROM damage"
+                       df4 = querydatafromdatabase(sql4,[],["id","name"])
+                       name4 = df4.name.unique().tolist()
+                       options4=[{'label':n, 'value':n} for n in name4]
+                       return [data,columns,0,options,options4,options3,options2]
                    else:
                        sql = "SELECT * FROM orders"
                        df = querydatafromdatabase(sql,[],["id","name","type","date","hours",
@@ -2072,7 +2145,25 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                        data=df.to_dict("rows")
                        name = df.name.unique().tolist()
                        options=[{'label':n, 'value':n} for n in name]
-                       return [data,columns,0,options]
+                       # load user table
+                       sql2 = "SELECT * FROM users"
+                       df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+                       name2 = df2.name.unique().tolist()
+                       options2 =[{'label':n, 'value':n} for n in name2]
+                        
+                       # load equipment table
+                       sql3 = "SELECT * FROM equipment"
+                       df3 = querydatafromdatabase(sql3,[],["id","name","brand","model",
+                                                            "date","cost","loc"])
+                       name3 = df3.name.unique().tolist()
+                       options3=[{'label':n, 'value':n} for n in name3]
+                        
+                       # load damage table
+                       sql4 = "SELECT * FROM damage"
+                       df4 = querydatafromdatabase(sql4,[],["id","name"])
+                       name4 = df4.name.unique().tolist()
+                       options4=[{'label':n, 'value':n} for n in name4]
+                       return [data,columns,0,options,options4,options3,options2]
                        return print("There is already an entry with the same name.")
                else:
                    input_id=data[selected_rows[0]]['id']
@@ -2085,7 +2176,25 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                    data=df.to_dict("rows")
                    name = df.name.unique().tolist()
                    options=[{'label':n, 'value':n} for n in name]
-                   return [data,columns,0,options]
+                   # load user table
+                   sql2 = "SELECT * FROM users"
+                   df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+                   name2 = df2.name.unique().tolist()
+                   options2 =[{'label':n, 'value':n} for n in name2]
+                    
+                   # load equipment table
+                   sql3 = "SELECT * FROM equipment"
+                   df3 = querydatafromdatabase(sql3,[],["id","name","brand","model",
+                                                        "date","cost","loc"])
+                   name3 = df3.name.unique().tolist()
+                   options3=[{'label':n, 'value':n} for n in name3]
+                    
+                   # load damage table
+                   sql4 = "SELECT * FROM damage"
+                   df4 = querydatafromdatabase(sql4,[],["id","name"])
+                   name4 = df4.name.unique().tolist()
+                   options4=[{'label':n, 'value':n} for n in name4]
+                   return [data,columns,0,options,options4,options3,options2]
        elif eventid =="order-delete-button":
            if 1 not in order_mode:
                sql = "SELECT * FROM orders"
@@ -2095,7 +2204,25 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                data=df.to_dict("rows")
                name = df.name.unique().tolist()
                options=[{'label':n, 'value':n} for n in name]
-               return [data,columns,0,options]
+               # load user table
+               sql2 = "SELECT * FROM users"
+               df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+               name2 = df2.name.unique().tolist()
+               options2 =[{'label':n, 'value':n} for n in name2]
+                
+               # load equipment table
+               sql3 = "SELECT * FROM equipment"
+               df3 = querydatafromdatabase(sql3,[],["id","name","brand","model",
+                                                    "date","cost","loc"])
+               name3 = df3.name.unique().tolist()
+               options3=[{'label':n, 'value':n} for n in name3]
+                
+               # load damage table
+               sql4 = "SELECT * FROM damage"
+               df4 = querydatafromdatabase(sql4,[],["id","name"])
+               name4 = df4.name.unique().tolist()
+               options4=[{'label':n, 'value':n} for n in name4]
+               return [data,columns,0,options,options4,options3,options2]
                return print("Please enable 'Edit Mode' in order to delete.")
            else:
                input_id=data[selected_rows[0]]['id']
@@ -2108,7 +2235,25 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                data=df.to_dict("rows")
                name = df.name.unique().tolist()
                options=[{'label':n, 'value':n} for n in name]
-               return [data,columns,0,options]        
+               # load user table
+               sql2 = "SELECT * FROM users"
+               df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+               name2 = df2.name.unique().tolist()
+               options2 =[{'label':n, 'value':n} for n in name2]
+                
+               # load equipment table
+               sql3 = "SELECT * FROM equipment"
+               df3 = querydatafromdatabase(sql3,[],["id","name","brand","model",
+                                                    "date","cost","loc"])
+               name3 = df3.name.unique().tolist()
+               options3=[{'label':n, 'value':n} for n in name3]
+                
+               # load damage table
+               sql4 = "SELECT * FROM damage"
+               df4 = querydatafromdatabase(sql4,[],["id","name"])
+               name4 = df4.name.unique().tolist()
+               options4=[{'label':n, 'value':n} for n in name4]
+               return [data,columns,0,options,options4,options3,options2]        
        elif eventid =="order-mode":
            sql = "SELECT * FROM orders"
            df = querydatafromdatabase(sql,[],["id","name","type","date","hours",
@@ -2117,7 +2262,25 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
            data=df.to_dict("rows")
            name = df.name.unique().tolist()
            options=[{'label':n, 'value':n} for n in name]
-           return [data,columns,2,options]
+           # load user table
+           sql2 = "SELECT * FROM users"
+           df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+           name2 = df2.name.unique().tolist()
+           options2 =[{'label':n, 'value':n} for n in name2]
+            
+           # load equipment table
+           sql3 = "SELECT * FROM equipment"
+           df3 = querydatafromdatabase(sql3,[],["id","name","brand","model",
+                                                "date","cost","loc"])
+           name3 = df3.name.unique().tolist()
+           options3=[{'label':n, 'value':n} for n in name3]
+            
+           # load damage table
+           sql4 = "SELECT * FROM damage"
+           df4 = querydatafromdatabase(sql4,[],["id","name"])
+           name4 = df4.name.unique().tolist()
+           options4=[{'label':n, 'value':n} for n in name4]
+           return [data,columns,2,options,options4,options3,options2]
 
    else:
       sql = "SELECT * FROM orders"
@@ -2127,7 +2290,25 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
       data=df.to_dict("rows")
       name = df.name.unique().tolist()
       options=[{'label':n, 'value':n} for n in name]
-      return [data,columns,2,options]
+      # load user table
+      sql2 = "SELECT * FROM users"
+      df2 = querydatafromdatabase(sql2,[],["id","name","date","dept","type","login"])
+      name2 = df2.name.unique().tolist()
+      options2 =[{'label':n, 'value':n} for n in name2]
+            
+      # load equipment table
+      sql3 = "SELECT * FROM equipment"
+      df3 = querydatafromdatabase(sql3,[],["id","name","brand","model",
+                                                "date","cost","loc"])
+      name3 = df3.name.unique().tolist()
+      options3=[{'label':n, 'value':n} for n in name3]
+            
+      # load damage table
+      sql4 = "SELECT * FROM damage"
+      df4 = querydatafromdatabase(sql4,[],["id","name"])
+      name4 = df4.name.unique().tolist()
+      options4=[{'label':n, 'value':n} for n in name4]
+      return [data,columns,2,options,options4,options3,options2]
 
 
 @app.callback(
