@@ -457,21 +457,25 @@ order_page = html.Div([
                     html.Br(),html.Br(),
                     dcc.Dropdown(
                         id='order-damage',
+                        options=[{'label':n, 'value':n} for n in name4],
                         style={'width':200},
                     ),
                     html.Br(),
                     dcc.Dropdown(
                         id='order-equi',
+                        options=[{'label':n, 'value':n} for n in name3],
                         style={'width':200},
                     ),
                     html.Br(),
                     dcc.Dropdown(
                         id='order-emp',
+                        options=[{'label':n, 'value':n} for n in name2],
                         style={'width':200},
                     ),
                     html.Br(),
                     dcc.Dropdown(
                         id='order-notif',
+                        options=[{'label':n, 'value':m} for n,m in zip(name0,id0)],
                         style={'width':200},
                     ),
 
