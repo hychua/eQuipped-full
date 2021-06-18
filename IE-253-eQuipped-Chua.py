@@ -287,7 +287,7 @@ notification_page = html.Div([
                     html.Br(),html.Br(),
                     html.Label('Priority:',
                       style={'font-weight':'bold','font-size':18}),
-                    html.Br(),html.Br(),
+                    html.Br(),html.Br(),html.Br(),
                     html.Label('Equipment:',
                       style={'font-weight':'bold','font-size':18}),
                     html.Br(),html.Br(),
