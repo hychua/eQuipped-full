@@ -584,7 +584,6 @@ user_page = html.Div([
                               style={'width':200}),
                     html.Br(),html.Br(),
                     dcc.Dropdown(id='user-dept',
-                              options=[{'label':n, 'value':n} for n in name5],
                               style={'width':200}),
                     html.Br(),
                     dcc.Dropdown(id='user-type',
@@ -2270,7 +2269,9 @@ def order_output_warining(order_submit_button,order_save_button,order_delete_but
      Output('usertable', 'data'),
      Output('usertable', 'columns'),
      Output('usersubmitmode','value'),
-     Output('user-dropdown','options')
+     Output('user-dropdown','options'),
+     # users dropdowns
+     Output('user-dept','options')
      ],
     [Input('user-submit-button', 'n_clicks'),
      Input('user-save-button', 'n_clicks'),
@@ -2300,7 +2301,12 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
            data=df.to_dict("rows")
            name = df.name.unique().tolist()
            options=[{'label':n, 'value':n} for n in name]
-           return [data,columns,2,options]
+           # load location table
+           sql5 = "SELECT * FROM location"
+           df5 = querydatafromdatabase(sql5,[],["id","name"])
+           name5 = df5.name.unique().tolist()
+           options5 = [{'label':n, 'value':n} for n in name5]
+           return [data,columns,2,options,options5]
        elif eventid =="user-save-button":
            # Add Mode
            if 1 not in user_mode:
@@ -2308,7 +2314,12 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
                df2 = querydatafromdatabase(sql2,[],["name"])
                name2 = list(df2['name'])
                if user_name in name2: 
-                   return [data,columns,0,options]
+                   # load location table
+                   sql5 = "SELECT * FROM location"
+                   df5 = querydatafromdatabase(sql5,[],["id","name"])
+                   name5 = df5.name.unique().tolist()
+                   options5 = [{'label':n, 'value':n} for n in name5]
+                   return [data,columns,0,options,options5]
                    return print("There is already an entry with the same name.")
                else:
                    sql = "SELECT max(id) as id FROM users"
@@ -2322,7 +2333,12 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
                    data=df.to_dict("rows")
                    name = df.name.unique().tolist()
                    options=[{'label':n, 'value':n} for n in name]
-                   return [data,columns,0,options]
+                   # load location table
+                   sql5 = "SELECT * FROM location"
+                   df5 = querydatafromdatabase(sql5,[],["id","name"])
+                   name5 = df5.name.unique().tolist()
+                   options5 = [{'label':n, 'value':n} for n in name5]
+                   return [data,columns,0,options,options5]
            # Edit Mode
            else:
                sql2 = "SELECT name as name FROM users"
@@ -2339,7 +2355,12 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
                        data=df.to_dict("rows")
                        name = df.name.unique().tolist()
                        options=[{'label':n, 'value':n} for n in name]
-                       return [data,columns,0,options]
+                       # load location table
+                       sql5 = "SELECT * FROM location"
+                       df5 = querydatafromdatabase(sql5,[],["id","name"])
+                       name5 = df5.name.unique().tolist()
+                       options5 = [{'label':n, 'value':n} for n in name5]
+                       return [data,columns,0,options,options5]
                    else:
                        sql = "SELECT * FROM users"
                        df = querydatafromdatabase(sql,[],["id","name","date","dept","type","login"])
@@ -2347,7 +2368,12 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
                        data=df.to_dict("rows")
                        name = df.name.unique().tolist()
                        options=[{'label':n, 'value':n} for n in name]
-                       return [data,columns,0,options]
+                       # load location table
+                       sql5 = "SELECT * FROM location"
+                       df5 = querydatafromdatabase(sql5,[],["id","name"])
+                       name5 = df5.name.unique().tolist()
+                       options5 = [{'label':n, 'value':n} for n in name5]
+                       return [data,columns,0,options,options5]
                        return print("There is already an entry with the same name.")
                else:
                    input_id=data[selected_rows[0]]['id']
@@ -2359,7 +2385,12 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
                    data=df.to_dict("rows")
                    name = df.name.unique().tolist()
                    options=[{'label':n, 'value':n} for n in name]
-                   return [data,columns,0,options]
+                   # load location table
+                   sql5 = "SELECT * FROM location"
+                   df5 = querydatafromdatabase(sql5,[],["id","name"])
+                   name5 = df5.name.unique().tolist()
+                   options5 = [{'label':n, 'value':n} for n in name5]
+                   return [data,columns,0,options,options5]
        elif eventid =="user-delete-button":
            if 1 not in user_mode:
                sql = "SELECT * FROM users"
@@ -2368,7 +2399,12 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
                data=df.to_dict("rows")
                name = df.name.unique().tolist()
                options=[{'label':n, 'value':n} for n in name]
-               return [data,columns,0,options]
+               # load location table
+               sql5 = "SELECT * FROM location"
+               df5 = querydatafromdatabase(sql5,[],["id","name"])
+               name5 = df5.name.unique().tolist()
+               options5 = [{'label':n, 'value':n} for n in name5]
+               return [data,columns,0,options,options5]
                return print("Please enable 'Edit Mode' in order to delete.")
            else:
                input_id=data[selected_rows[0]]['id']
@@ -2380,7 +2416,12 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
                data=df.to_dict("rows")
                name = df.name.unique().tolist()
                options=[{'label':n, 'value':n} for n in name]
-               return [data,columns,0,options]        
+               # load location table
+               sql5 = "SELECT * FROM location"
+               df5 = querydatafromdatabase(sql5,[],["id","name"])
+               name5 = df5.name.unique().tolist()
+               options5 = [{'label':n, 'value':n} for n in name5]
+               return [data,columns,0,options,options5]        
        elif eventid =="user-mode":
            sql = "SELECT * FROM users"
            df = querydatafromdatabase(sql,[],["id","name","date","dept","type","login"])
@@ -2388,7 +2429,12 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
            data=df.to_dict("rows")
            name = df.name.unique().tolist()
            options=[{'label':n, 'value':n} for n in name]
-           return [data,columns,2,options]
+           # load location table
+           sql5 = "SELECT * FROM location"
+           df5 = querydatafromdatabase(sql5,[],["id","name"])
+           name5 = df5.name.unique().tolist()
+           options5 = [{'label':n, 'value':n} for n in name5]
+           return [data,columns,2,options,options5]
 
    else:
            sql = "SELECT * FROM users"
@@ -2397,7 +2443,12 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
            data=df.to_dict("rows")
            name = df.name.unique().tolist()
            options=[{'label':n, 'value':n} for n in name]
-           return [data,columns,2,options]
+           # load location table
+           sql5 = "SELECT * FROM location"
+           df5 = querydatafromdatabase(sql5,[],["id","name"])
+           name5 = df5.name.unique().tolist()
+           options5 = [{'label':n, 'value':n} for n in name5]
+           return [data,columns,2,options,options5]
 
 
 @app.callback(
@@ -2528,7 +2579,9 @@ def user_output_warining(user_submit_button,user_save_button,user_delete_button,
      Output('equitable', 'data'),
      Output('equitable', 'columns'),
      Output('equisubmitmode','value'),
-     Output('equi-dropdown','options')
+     Output('equi-dropdown','options'),
+     # equipment dropdowns
+     Output('equi-loc','options')
      ],
     [Input('equi-submit-button', 'n_clicks'),
      Input('equi-save-button', 'n_clicks'),
@@ -2560,7 +2613,12 @@ def equi_output(equi_submit_button,equi_save_button,equi_delete_button,
            data=df.to_dict("rows")
            name = df.name.unique().tolist()
            options=[{'label':n, 'value':n} for n in name]
-           return [data,columns,2,options]
+           # load location table
+           sql5 = "SELECT * FROM location"
+           df5 = querydatafromdatabase(sql5,[],["id","name"])
+           name5 = df5.name.unique().tolist()
+           options5 = [{'label':n, 'value':n} for n in name5]
+           return [data,columns,2,options,options5]
        elif eventid =="equi-save-button":
            # Add Mode
            if 1 not in equi_mode:
@@ -2568,7 +2626,12 @@ def equi_output(equi_submit_button,equi_save_button,equi_delete_button,
                df2 = querydatafromdatabase(sql2,[],["name"])
                name2 = list(df2['name'])
                if equi_name in name2: 
-                   return [data,columns,0,options]
+                   # load location table
+                   sql5 = "SELECT * FROM location"
+                   df5 = querydatafromdatabase(sql5,[],["id","name"])
+                   name5 = df5.name.unique().tolist()
+                   options5 = [{'label':n, 'value':n} for n in name5]
+                   return [data,columns,0,options,options5]
                    return print("There is already an entry with the same name.")
                else:
                    sql = "SELECT max(id) as id FROM equipment"
@@ -2583,7 +2646,12 @@ def equi_output(equi_submit_button,equi_save_button,equi_delete_button,
                    data=df.to_dict("rows")
                    name = df.name.unique().tolist()
                    options=[{'label':n, 'value':n} for n in name]
-                   return [data,columns,0,options]
+                   # load location table
+                   sql5 = "SELECT * FROM location"
+                   df5 = querydatafromdatabase(sql5,[],["id","name"])
+                   name5 = df5.name.unique().tolist()
+                   options5 = [{'label':n, 'value':n} for n in name5]   
+                   return [data,columns,0,options,options5]
            # Edit Mode
            else:
                sql2 = "SELECT name as name FROM equipment"
@@ -2601,7 +2669,12 @@ def equi_output(equi_submit_button,equi_save_button,equi_delete_button,
                        data=df.to_dict("rows")
                        name = df.name.unique().tolist()
                        options=[{'label':n, 'value':n} for n in name]
-                       return [data,columns,0,options]
+                       # load location table
+                       sql5 = "SELECT * FROM location"
+                       df5 = querydatafromdatabase(sql5,[],["id","name"])
+                       name5 = df5.name.unique().tolist()
+                       options5 = [{'label':n, 'value':n} for n in name5]   
+                       return [data,columns,0,options,options5]
                    else:
                        sql = "SELECT * FROM equipment"
                        df = querydatafromdatabase(sql,[],["id","name","brand","model",
@@ -2610,7 +2683,12 @@ def equi_output(equi_submit_button,equi_save_button,equi_delete_button,
                        data=df.to_dict("rows")
                        name = df.name.unique().tolist()
                        options=[{'label':n, 'value':n} for n in name]
-                       return [data,columns,0,options]
+                       # load location table
+                       sql5 = "SELECT * FROM location"
+                       df5 = querydatafromdatabase(sql5,[],["id","name"])
+                       name5 = df5.name.unique().tolist()
+                       options5 = [{'label':n, 'value':n} for n in name5]
+                       return [data,columns,0,options,options5]
                        return print("There is already an entry with the same name.")
                else:
                    input_id=data[selected_rows[0]]['id']
@@ -2623,7 +2701,12 @@ def equi_output(equi_submit_button,equi_save_button,equi_delete_button,
                    data=df.to_dict("rows")
                    name = df.name.unique().tolist()
                    options=[{'label':n, 'value':n} for n in name]
-                   return [data,columns,0,options]
+                   # load location table
+                   sql5 = "SELECT * FROM location"
+                   df5 = querydatafromdatabase(sql5,[],["id","name"])
+                   name5 = df5.name.unique().tolist()
+                   options5 = [{'label':n, 'value':n} for n in name5]
+                   return [data,columns,0,options,options5]
        elif eventid =="equi-delete-button":
            if 1 not in equi_mode:
                sql = "SELECT * FROM equipment"
@@ -2633,7 +2716,12 @@ def equi_output(equi_submit_button,equi_save_button,equi_delete_button,
                data=df.to_dict("rows")
                name = df.name.unique().tolist()
                options=[{'label':n, 'value':n} for n in name]
-               return [data,columns,0,options]
+               # load location table
+               sql5 = "SELECT * FROM location"
+               df5 = querydatafromdatabase(sql5,[],["id","name"])
+               name5 = df5.name.unique().tolist()
+               options5 = [{'label':n, 'value':n} for n in name5]
+               return [data,columns,0,options,options5]
                return print("Please enable 'Edit Mode' in order to delete.")
            else:
                input_id=data[selected_rows[0]]['id']
@@ -2646,7 +2734,12 @@ def equi_output(equi_submit_button,equi_save_button,equi_delete_button,
                data=df.to_dict("rows")
                name = df.name.unique().tolist()
                options=[{'label':n, 'value':n} for n in name]
-               return [data,columns,0,options]        
+               # load location table
+               sql5 = "SELECT * FROM location"
+               df5 = querydatafromdatabase(sql5,[],["id","name"])
+               name5 = df5.name.unique().tolist()
+               options5 = [{'label':n, 'value':n} for n in name5]
+               return [data,columns,0,options,options5]        
        elif eventid =="equi-mode":
            sql = "SELECT * FROM equipment"
            df = querydatafromdatabase(sql,[],["id","name","brand","model",
@@ -2655,7 +2748,12 @@ def equi_output(equi_submit_button,equi_save_button,equi_delete_button,
            data=df.to_dict("rows")
            name = df.name.unique().tolist()
            options=[{'label':n, 'value':n} for n in name]
-           return [data,columns,2,options]
+           # load location table
+           sql5 = "SELECT * FROM location"
+           df5 = querydatafromdatabase(sql5,[],["id","name"])
+           name5 = df5.name.unique().tolist()
+           options5 = [{'label':n, 'value':n} for n in name5]
+           return [data,columns,2,options,options5]
 
    else:
            sql = "SELECT * FROM equipment"
@@ -2665,7 +2763,12 @@ def equi_output(equi_submit_button,equi_save_button,equi_delete_button,
            data=df.to_dict("rows")
            name = df.name.unique().tolist()
            options=[{'label':n, 'value':n} for n in name]
-           return [data,columns,2,options]
+           # load location table
+           sql5 = "SELECT * FROM location"
+           df5 = querydatafromdatabase(sql5,[],["id","name"])
+           name5 = df5.name.unique().tolist()
+           options5 = [{'label':n, 'value':n} for n in name5]
+           return [data,columns,2,options,options5]
 
 
 @app.callback(
