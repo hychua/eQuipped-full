@@ -1628,7 +1628,7 @@ def login_output_warning(login_submit_button,login_save_button,login_delete_butt
      ])
 def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
            notif_mode,notif_name, notif_date, notif_priority,
-           notif_equi,notif_user,selected_rows,data,notif_dropdown):
+           notif_equi,notif_emp,selected_rows,data,notif_dropdown):
    ctx = dash.callback_context
    if ctx.triggered:
        eventid = ctx.triggered[0]['prop_id'].split('.')[0]
@@ -1680,7 +1680,7 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
                    df = querydatafromdatabase(sql,[],["id"])
                    input_id = int(df['id'][0])+1
                    sqlinsert = "INSERT INTO notification(id,name,date,priority,equi) VALUES(%s, %s, %s, %s, %s)"
-                   modifydatabase(sqlinsert, [input_id,notif_name, notif_date, notif_priority,notif_equi,notif_user])
+                   modifydatabase(sqlinsert, [input_id,notif_name, notif_date, notif_priority,notif_equi,notif_emp])
                    sql = "SELECT * FROM notification"
                    df = querydatafromdatabase(sql,[],["id","name","date","priority","equi","users"])
                    columns=[{"name": i, "id": i} for i in df.columns]
@@ -1708,7 +1708,7 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
                    if notif_name == notif_dropdown:
                        input_id=data[selected_rows[0]]['id']
                        sqlinsert = "UPDATE notification SET name=%s,date=%s,priority=%s,equi=%s,users=%s WHERE id=%s"
-                       modifydatabase(sqlinsert, [notif_name,notif_date,notif_priority,notif_equi,notif_user,input_id])
+                       modifydatabase(sqlinsert, [notif_name,notif_date,notif_priority,notif_equi,notif_emp,input_id])
                        sql = "SELECT * FROM notification"
                        df = querydatafromdatabase(sql,[],["id","name","date","priority","equi","users"])
                        columns=[{"name": i, "id": i} for i in df.columns]
@@ -1750,7 +1750,7 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
                else:
                    input_id=data[selected_rows[0]]['id']
                    sqlinsert = "UPDATE notification SET name=%s,date=%s,priority=%s,equi=%s,users=%s WHERE id=%s"
-                   modifydatabase(sqlinsert, [notif_name,notif_date,notif_priority,notif_equi,notif_user,input_id])
+                   modifydatabase(sqlinsert, [notif_name,notif_date,notif_priority,notif_equi,notif_emp,input_id])
                    sql = "SELECT * FROM notification"
                    df = querydatafromdatabase(sql,[],["id","name","date","priority","equi","users"])
                    columns=[{"name": i, "id": i} for i in df.columns]
@@ -1874,7 +1874,7 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
      State('notiftable', 'data'),
      ])
 def notif_clear(notifsubmitmode, selected_rows,notif_name, notif_date,
-          notif_priority,notif_equi,notif_user,data):
+          notif_priority,notif_equi,notif_emp,data):
    ctx = dash.callback_context
    if ctx.triggered:
        eventid = ctx.triggered[0]['prop_id'].split('.')[0]
@@ -1882,7 +1882,7 @@ def notif_clear(notifsubmitmode, selected_rows,notif_name, notif_date,
           if notifsubmitmode==0:
               return ["","","","",""]
           elif notifsubmitmode==1:
-              return [notif_name, notif_date,notif_priority,notif_equi,notif_user]
+              return [notif_name, notif_date,notif_priority,notif_equi,notif_emp]
           elif notifsubmitmode==2:
               if selected_rows:
                   
