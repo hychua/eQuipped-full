@@ -472,7 +472,6 @@ order_page = html.Div([
                     html.Br(),
                     dcc.Dropdown(
                         id='order-notif',
-                        options=[{'label':n, 'value':m} for n,m in zip(name0,id0)],
                         style={'width':200},
                     ),
 
@@ -1988,7 +1987,8 @@ def notif_output_warning(notif_submit_button,notif_save_button,notif_delete_butt
      # orders dropdowns
      Output('order-damage','options'),
      Output('order-equi','options'),
-     Output('order-emp','options')
+     Output('order-emp','options'),
+     Output('order-notif','options')
      ],
     [Input('order-submit-button', 'n_clicks'),
      Input('order-save-button', 'n_clicks'),
@@ -2041,7 +2041,14 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
            df4 = querydatafromdatabase(sql4,[],["id","name"])
            name4 = df4.name.unique().tolist()
            options4=[{'label':n, 'value':n} for n in name4]
-           return [data,columns,2,options,options4,options3,options2]
+           
+           # load notification table
+           sql0 = "SELECT * FROM notification"
+           df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
+           id0 = df0.id.unique().tolist()
+           name0 = df0.name.unique().tolist()
+           options0=[{'label':n, 'value':m} for n,m in zip(name0,id0)]
+           return [data,columns,2,options,options4,options3,options2,options0]
        elif eventid =="order-save-button":
            # Add Mode
            if 1 not in order_mode:
@@ -2067,7 +2074,13 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                    df4 = querydatafromdatabase(sql4,[],["id","name"])
                    name4 = df4.name.unique().tolist()
                    options4=[{'label':n, 'value':n} for n in name4]
-                   return [data,columns,0,options,options4,options3,options2]
+                   # load notification table
+                   sql0 = "SELECT * FROM notification"
+                   df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
+                   id0 = df0.id.unique().tolist()
+                   name0 = df0.name.unique().tolist()
+                   options0=[{'label':n, 'value':m} for n,m in zip(name0,id0)]
+                   return [data,columns,0,options,options4,options3,options2,options0]
                    return print("There is already an entry with the same name.")
                else:
                    sql = "SELECT max(id) as id FROM orders"
@@ -2100,7 +2113,13 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                    df4 = querydatafromdatabase(sql4,[],["id","name"])
                    name4 = df4.name.unique().tolist()
                    options4=[{'label':n, 'value':n} for n in name4] 
-                   return [data,columns,0,options,options4,options3,options2]
+                   # load notification table
+                   sql0 = "SELECT * FROM notification"
+                   df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
+                   id0 = df0.id.unique().tolist()
+                   name0 = df0.name.unique().tolist()
+                   options0=[{'label':n, 'value':m} for n,m in zip(name0,id0)]
+                   return [data,columns,0,options,options4,options3,options2,options0]
            # Edit Mode
            else:
                sql2 = "SELECT name as name FROM orders"
@@ -2136,7 +2155,13 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                        df4 = querydatafromdatabase(sql4,[],["id","name"])
                        name4 = df4.name.unique().tolist()
                        options4=[{'label':n, 'value':n} for n in name4]
-                       return [data,columns,0,options,options4,options3,options2]
+                       # load notification table
+                       sql0 = "SELECT * FROM notification"
+                       df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
+                       id0 = df0.id.unique().tolist()
+                       name0 = df0.name.unique().tolist()
+                       options0=[{'label':n, 'value':m} for n,m in zip(name0,id0)]
+                       return [data,columns,0,options,options4,options3,options2,options0]
                    else:
                        sql = "SELECT * FROM orders"
                        df = querydatafromdatabase(sql,[],["id","name","type","date","hours",
@@ -2163,7 +2188,13 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                        df4 = querydatafromdatabase(sql4,[],["id","name"])
                        name4 = df4.name.unique().tolist()
                        options4=[{'label':n, 'value':n} for n in name4]
-                       return [data,columns,0,options,options4,options3,options2]
+                       # load notification table
+                       sql0 = "SELECT * FROM notification"
+                       df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
+                       id0 = df0.id.unique().tolist()
+                       name0 = df0.name.unique().tolist()
+                       options0=[{'label':n, 'value':m} for n,m in zip(name0,id0)]
+                       return [data,columns,0,options,options4,options3,options2,options0]
                        return print("There is already an entry with the same name.")
                else:
                    input_id=data[selected_rows[0]]['id']
@@ -2194,7 +2225,13 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                    df4 = querydatafromdatabase(sql4,[],["id","name"])
                    name4 = df4.name.unique().tolist()
                    options4=[{'label':n, 'value':n} for n in name4]
-                   return [data,columns,0,options,options4,options3,options2]
+                   # load notification table
+                   sql0 = "SELECT * FROM notification"
+                   df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
+                   id0 = df0.id.unique().tolist()
+                   name0 = df0.name.unique().tolist()
+                   options0=[{'label':n, 'value':m} for n,m in zip(name0,id0)]
+                   return [data,columns,0,options,options4,options3,options2,options0]
        elif eventid =="order-delete-button":
            if 1 not in order_mode:
                sql = "SELECT * FROM orders"
@@ -2222,7 +2259,13 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                df4 = querydatafromdatabase(sql4,[],["id","name"])
                name4 = df4.name.unique().tolist()
                options4=[{'label':n, 'value':n} for n in name4]
-               return [data,columns,0,options,options4,options3,options2]
+               # load notification table
+               sql0 = "SELECT * FROM notification"
+               df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
+               id0 = df0.id.unique().tolist()
+               name0 = df0.name.unique().tolist()
+               options0=[{'label':n, 'value':m} for n,m in zip(name0,id0)]
+               return [data,columns,0,options,options4,options3,options2,options0]
                return print("Please enable 'Edit Mode' in order to delete.")
            else:
                input_id=data[selected_rows[0]]['id']
@@ -2253,7 +2296,13 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                df4 = querydatafromdatabase(sql4,[],["id","name"])
                name4 = df4.name.unique().tolist()
                options4=[{'label':n, 'value':n} for n in name4]
-               return [data,columns,0,options,options4,options3,options2]        
+               # load notification table
+               sql0 = "SELECT * FROM notification"
+               df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
+               id0 = df0.id.unique().tolist()
+               name0 = df0.name.unique().tolist()
+               options0=[{'label':n, 'value':m} for n,m in zip(name0,id0)]
+               return [data,columns,0,options,options4,options3,options2,options0]        
        elif eventid =="order-mode":
            sql = "SELECT * FROM orders"
            df = querydatafromdatabase(sql,[],["id","name","type","date","hours",
@@ -2280,7 +2329,13 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
            df4 = querydatafromdatabase(sql4,[],["id","name"])
            name4 = df4.name.unique().tolist()
            options4=[{'label':n, 'value':n} for n in name4]
-           return [data,columns,2,options,options4,options3,options2]
+           # load notification table
+           sql0 = "SELECT * FROM notification"
+           df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
+           id0 = df0.id.unique().tolist()
+           name0 = df0.name.unique().tolist()
+           options0=[{'label':n, 'value':m} for n,m in zip(name0,id0)]
+           return [data,columns,2,options,options4,options3,options2,options0]
 
    else:
       sql = "SELECT * FROM orders"
@@ -2308,7 +2363,13 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
       df4 = querydatafromdatabase(sql4,[],["id","name"])
       name4 = df4.name.unique().tolist()
       options4=[{'label':n, 'value':n} for n in name4]
-      return [data,columns,2,options,options4,options3,options2]
+      # load notification table
+      sql0 = "SELECT * FROM notification"
+      df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
+      id0 = df0.id.unique().tolist()
+      name0 = df0.name.unique().tolist()
+      options0=[{'label':n, 'value':m} for n,m in zip(name0,id0)]
+      return [data,columns,2,options,options4,options3,options2,options0]
 
 
 @app.callback(
