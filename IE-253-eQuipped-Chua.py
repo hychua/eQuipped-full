@@ -2900,7 +2900,7 @@ def equi_output(equi_submit_button,equi_save_button,equi_delete_button,
                if equi_name in name2:
                    if equi_name == equi_dropdown:
                        input_id=data[selected_rows[0]]['id']
-                       sqlinsert = "UPDATE equipment SET name=%s,brand=%s,model=%s,date=%s,cost=%,loc=%ss WHERE id=%s"
+                       sqlinsert = "UPDATE equipment SET name=%s,brand=%s,model=%s,date=%s,cost=%s,loc=%s WHERE id=%s"
                        modifydatabase(sqlinsert, [equi_name, equi_brand,equi_model,equi_date,equi_cost,equi_loc,input_id])
                        sql = "SELECT * FROM equipment"
                        df = querydatafromdatabase(sql,[],["id","name","brand","model",
