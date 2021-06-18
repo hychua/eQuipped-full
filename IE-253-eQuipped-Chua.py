@@ -281,7 +281,7 @@ notification_page = html.Div([
                 html.Div([
                     html.Label('Name:',
                       style={'font-weight':'bold','font-size':18}),
-                    html.Br(),html.Br(),html.Br(),
+                    html.Br(),html.Br(),
                     html.Label('Date:',
                       style={'font-weight':'bold','font-size':18}),
                     html.Br(),html.Br(),
@@ -314,7 +314,7 @@ notification_page = html.Div([
                     html.Br(),html.Br(),
                     dcc.Input(id='notif-date', type='date',
                               style={'width':200}),
-                    html.Br(),
+                    html.Br(),html.Br(),
                     dcc.Dropdown(id='notif-priority',value='Low',
                                  options=[{'label':'Very High', 'value':'Very High'},
                                           {'label':'High', 'value':'High'},
