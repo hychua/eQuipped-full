@@ -281,11 +281,11 @@ notification_page = html.Div([
                 html.Div([
                     html.Label('Name:',
                       style={'font-weight':'bold','font-size':18}),
-                    html.Br(),html.Br(),
-                    html.Label('Priority:',
-                      style={'font-weight':'bold','font-size':18}),
                     html.Br(),html.Br(),html.Br(),
                     html.Label('Date:',
+                      style={'font-weight':'bold','font-size':18}),
+                    html.Br(),html.Br(),
+                    html.Label('Priority:',
                       style={'font-weight':'bold','font-size':18}),
                     html.Br(),html.Br(),
                     html.Label('Equipment:',
@@ -312,6 +312,9 @@ notification_page = html.Div([
                     dcc.Input(id='notif-name', type='text',
                               style={'width':200}),
                     html.Br(),html.Br(),
+                    dcc.Input(id='notif-date', type='date',
+                              style={'width':200}),
+                    html.Br(),
                     dcc.Dropdown(id='notif-priority',value='Low',
                                  options=[{'label':'Very High', 'value':'Very High'},
                                           {'label':'High', 'value':'High'},
@@ -319,9 +322,6 @@ notification_page = html.Div([
                                           {'label':'Low', 'value':'Low'}],
                               style={'width':200}),
                     html.Br(),
-                    dcc.Input(id='notif-date', type='date',
-                              style={'width':200}),
-                    html.Br(),html.Br(),
                     dcc.Dropdown(
                         id='notif-equi',                     
                         style={'width':200},
@@ -1679,7 +1679,7 @@ def notif_output(notif_submit_button,notif_save_button,notif_delete_button,
                    sql = "SELECT max(id) as id FROM notification"
                    df = querydatafromdatabase(sql,[],["id"])
                    input_id = int(df['id'][0])+1
-                   sqlinsert = "INSERT INTO notification(id,name,date,priority,equi) VALUES(%s, %s, %s, %s, %s)"
+                   sqlinsert = "INSERT INTO notification(id,name,date,priority,equi,users) VALUES(%s, %s, %s, %s, %s, %s)"
                    modifydatabase(sqlinsert, [input_id,notif_name, notif_date, notif_priority,notif_equi,notif_emp])
                    sql = "SELECT * FROM notification"
                    df = querydatafromdatabase(sql,[],["id","name","date","priority","equi","users"])
