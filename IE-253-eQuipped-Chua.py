@@ -3651,15 +3651,11 @@ def generate_chart(n_clicks,report1_equi):
     State('report1-equi','value'))
 def generate_chart2(n_clicks, report1_equi):
     
-    # load damage table
-    sql4 = "SELECT name FROM damage"
-    df4 = querydatafromdatabase(sql4,[],["name"])
-    ls4 = df4.name.unique().tolist()
-    
     sql1 = "SELECT damage,equi FROM orders"
     df1 = querydatafromdatabase(sql1,[],["damage","equi"])
     df1_equi = df1[df1["equi"] == report1_equi]
     ls1 = df1_equi.damage.tolist()
+    ls4 = df1_equi.damage.unique().tolist()
     
     ls41 = ls4 + ls1
     df41 = pd.DataFrame(ls41, columns = ['damage'])
