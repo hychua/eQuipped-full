@@ -2027,9 +2027,8 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
            # load notification table
            sql0 = "SELECT * FROM notification"
            df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
-           id0 = df0.id.unique().tolist()
            name0 = df0.name.unique().tolist()
-           options0=[{'label':n, 'value':m} for n,m in zip(name0,id0)],
+           options0=[{'label':n, 'value':n} for n,m in name0]
             
            # load user table
            sql2 = "SELECT * FROM users"
@@ -2068,9 +2067,8 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                    # load notification table
                    sql0 = "SELECT * FROM notification"
                    df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
-                   id0 = df0.id.unique().tolist()
                    name0 = df0.name.unique().tolist()
-                   options0=[{'label':n, 'value':m} for n,m in zip(name0,id0)],
+                   options0=[{'label':n, 'value':n} for n,m in name0]
                     
                    # load user table
                    sql2 = "SELECT * FROM users"
@@ -2108,9 +2106,8 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                        # load notification table
                        sql0 = "SELECT * FROM notification"
                        df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
-                       id0 = df0.id.unique().tolist()
                        name0 = df0.name.unique().tolist()
-                       options0=[{'label':n, 'value':m} for n,m in zip(name0,id0)],
+                       options0=[{'label':n, 'value':n} for n,m in name0]
                         
                        # load user table
                        sql2 = "SELECT * FROM users"
@@ -2151,9 +2148,8 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                        # load notification table
                        sql0 = "SELECT * FROM notification"
                        df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
-                       id0 = df0.id.unique().tolist()
                        name0 = df0.name.unique().tolist()
-                       options0=[{'label':n, 'value':m} for n,m in zip(name0,id0)],
+                       options0=[{'label':n, 'value':n} for n,m in name0]
                         
                        # load user table
                        sql2 = "SELECT * FROM users"
@@ -2185,9 +2181,8 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                        # load notification table
                        sql0 = "SELECT * FROM notification"
                        df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
-                       id0 = df0.id.unique().tolist()
                        name0 = df0.name.unique().tolist()
-                       options0=[{'label':n, 'value':m} for n,m in zip(name0,id0)],
+                       options0=[{'label':n, 'value':n} for n,m in name0]
                         
                        # load user table
                        sql2 = "SELECT * FROM users"
@@ -2223,9 +2218,8 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                    # load notification table
                    sql0 = "SELECT * FROM notification"
                    df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
-                   id0 = df0.id.unique().tolist()
                    name0 = df0.name.unique().tolist()
-                   options0=[{'label':n, 'value':m} for n,m in zip(name0,id0)],
+                   options0=[{'label':n, 'value':n} for n,m in name0]
                     
                    # load user table
                    sql2 = "SELECT * FROM users"
@@ -2258,9 +2252,8 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                # load notification table
                sql0 = "SELECT * FROM notification"
                df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
-               id0 = df0.id.unique().tolist()
                name0 = df0.name.unique().tolist()
-               options0=[{'label':n, 'value':m} for n,m in zip(name0,id0)],
+               options0=[{'label':n, 'value':n} for n,m in name0]
                 
                # load user table
                sql2 = "SELECT * FROM users"
@@ -2296,9 +2289,8 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
                # load notification table
                sql0 = "SELECT * FROM notification"
                df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
-               id0 = df0.id.unique().tolist()
                name0 = df0.name.unique().tolist()
-               options0=[{'label':n, 'value':m} for n,m in zip(name0,id0)],
+               options0=[{'label':n, 'value':n} for n,m in name0]
                 
                # load user table
                sql2 = "SELECT * FROM users"
@@ -2330,9 +2322,8 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
            # load notification table
            sql0 = "SELECT * FROM notification"
            df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
-           id0 = df0.id.unique().tolist()
            name0 = df0.name.unique().tolist()
-           options0=[{'label':n, 'value':m} for n,m in zip(name0,id0)],
+           options0=[{'label':n, 'value':n} for n,m in name0]
             
            # load user table
            sql2 = "SELECT * FROM users"
@@ -2365,9 +2356,8 @@ def order_output(order_submit_button,order_save_button,order_delete_button,
            # load notification table
            sql0 = "SELECT * FROM notification"
            df0 = querydatafromdatabase(sql0,[],["id","name","date","priority","equi","users"])
-           id0 = df0.id.unique().tolist()
            name0 = df0.name.unique().tolist()
-           options0=[{'label':n, 'value':m} for n,m in zip(name0,id0)],
+           options0=[{'label':n, 'value':n} for n,m in name0]
             
            # load user table
            sql2 = "SELECT * FROM users"
