@@ -3661,8 +3661,7 @@ def generate_chart2(n_clicks, report1_equi):
     df1_equi = df1[df1["equi"] == report1_equi]
     ls1 = df1_equi.damage.tolist()
     
-    ls41 = ls4 + ls1
-    df41 = pd.DataFrame(ls41, columns = ['damage'])
+    df41 = pd.DataFrame(ls1, columns = ['damage'])
     
     vcount = df41.value_counts()
     vcount_list = vcount.tolist()
