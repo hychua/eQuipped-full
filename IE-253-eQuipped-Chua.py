@@ -675,7 +675,7 @@ user_page2 = html.Div([
                     html.Label('Location:',
                       style={'font-weight':'bold','font-size':18}),
                     html.Br(),html.Br(),html.Br(),
-                    html.Label('Type:',
+                    html.Label(id="type-label",children='Type:',
                       style={'font-weight':'bold','font-size':18}),
                     
                     html.Label('Username:',
@@ -2864,7 +2864,8 @@ def user_output_warining(user_submit_button,user_save_button,user_delete_button,
 
 # user type edit additional callback
 @app.callback(
-    Output('user-type','style'),
+    [Output('user-type','style'),
+     Output('type-label','style')],
     Input('user-mode','value')
     )
 def user2_edit(user_mode):
@@ -2875,9 +2876,10 @@ def user2_edit(user_mode):
     df_admin = df2[df2['type']=="Admin"]
     admin = df_admin.login.tolist()
     if username in admin:
-        return {'width':200}
+        if 1 in user_mode:
+            return [{'width':200},{'font-weight':'bold','font-size':18}]
     else:
-        return {'display':'none'}
+        return [{'display':'none'},{'display','none'}]
 
 # equipment callbacks
 @app.callback(
