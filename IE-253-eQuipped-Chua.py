@@ -2876,7 +2876,7 @@ def user2_edit(user_mode):
     df_admin = df2[df2['type']=="Admin"]
     admin = df_admin.login.tolist()
     if username in admin:
-        if 1 in user_mode:
+        if 1 not in user_mode:
             return [{'width':200},{'font-weight':'bold','font-size':18}]
     else:
         return [{'display':'none'},{'display':'none'}]
