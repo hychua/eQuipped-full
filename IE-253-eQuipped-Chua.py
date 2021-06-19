@@ -702,7 +702,6 @@ user_page2 = html.Div([
                               style={'width':200}),
                     html.Br(),html.Br(),
                     dcc.Dropdown(id='user-dept',
-                              options=[{'label':n, 'value':n} for n in name5],
                               style={'width':200}),
                     html.Br(),
                     dcc.Dropdown(id='user-type',
@@ -713,7 +712,6 @@ user_page2 = html.Div([
                     
                     dcc.Dropdown(
                         id='user-login',
-                        options=[{'label':n, 'value':n} for n in name],
                         style={'width':200,'display':'none'},
                     ),
                     html.Br(),html.Br(),
@@ -745,7 +743,7 @@ user_page2 = html.Div([
                        'color':'rgb(255,255,255)',
                        'backgroundColor':'rgb(0,123,255)',
                        'borderRadius':5,
-                       'height':38})],
+                       'height':38,'display':'none'})],
                              ),
                             
                 ]),
@@ -2863,6 +2861,23 @@ def user_output_warining(user_submit_button,user_save_button,user_delete_button,
 
    else:
       raise PreventUpdate
+
+# user type edit additional callback
+@app.callback(
+    Output('user-type','style'),
+    Input('user-mode','value')
+    )
+def user2_edit(user_mode):
+    username = request.authorization['username']
+    # load user table
+    sql2 = "SELECT type,login FROM users"
+    df2 = querydatafromdatabase(sql2,[],["type","login"])
+    df_admin = df2[df2['type']=="Admin"]
+    admin = df_admin.login.tolist()
+    if username in admin:
+        return {'width':200}
+    else:
+        return {'display':'none'}
 
 # equipment callbacks
 @app.callback(
