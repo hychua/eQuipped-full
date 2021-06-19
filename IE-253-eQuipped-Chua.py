@@ -2879,7 +2879,7 @@ def user2_edit(user_mode):
         if 1 in user_mode:
             return [{'width':200},{'font-weight':'bold','font-size':18}]
     else:
-        return [{'display':'none'},{'display','none'}]
+        return [{'display':'none'},{'display':'none'}]
 
 # equipment callbacks
 @app.callback(
