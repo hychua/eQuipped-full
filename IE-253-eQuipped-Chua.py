@@ -132,7 +132,7 @@ layout_index = html.Div([
         style={'backgroundColor':'rgb(0,123,255)','height':20,'borderRadius':5}),
         
     html.Div([
-        html.H2('Please select the Tab of the data you wish to manage on the left.',
+        html.H2('Please select the Tab of the data you wish to manage above.',
                             style={'color':'rgb(0,123,255)',
                                    'font-family':'avenir',}),      
         html.H3("Here is a brief guide of how to use each tab:",style={'color':'rgb(0,123,255)',
