@@ -2511,7 +2511,8 @@ def order_output_warining(order_submit_button,order_save_button,order_delete_but
      Output('usersubmitmode','value'),
      Output('user-dropdown','options'),
      # users dropdowns
-     Output('user-dept','options')
+     Output('user-dept','options'),
+     Output('user-login','options')
      ],
     [Input('user-submit-button', 'n_clicks'),
      Input('user-save-button', 'n_clicks'),
@@ -2546,7 +2547,12 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
            df5 = querydatafromdatabase(sql5,[],["id","name"])
            name5 = df5.name.unique().tolist()
            options5 = [{'label':n, 'value':n} for n in name5]
-           return [data,columns,2,options,options5]
+           # load login table
+           sqlx = "SELECT * FROM login"
+           dfx = querydatafromdatabase(sqlx,[],["id","name","password"])
+           namex = dfx.name.unique().tolist()
+           optionsx = [{'label':n, 'value':n} for n in namex]
+           return [data,columns,2,options,options5,optionsx]
        elif eventid =="user-save-button":
            # Add Mode
            if 1 not in user_mode:
@@ -2559,7 +2565,12 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
                    df5 = querydatafromdatabase(sql5,[],["id","name"])
                    name5 = df5.name.unique().tolist()
                    options5 = [{'label':n, 'value':n} for n in name5]
-                   return [data,columns,0,options,options5]
+                   # load login table
+                   sqlx = "SELECT * FROM login"
+                   dfx = querydatafromdatabase(sqlx,[],["id","name","password"])
+                   namex = dfx.name.unique().tolist()
+                   optionsx = [{'label':n, 'value':n} for n in namex]
+                   return [data,columns,0,options,options5,optionsx]
                    return print("There is already an entry with the same name.")
                else:
                    sql = "SELECT max(id) as id FROM users"
@@ -2578,7 +2589,12 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
                    df5 = querydatafromdatabase(sql5,[],["id","name"])
                    name5 = df5.name.unique().tolist()
                    options5 = [{'label':n, 'value':n} for n in name5]
-                   return [data,columns,0,options,options5]
+                   # load login table
+                   sqlx = "SELECT * FROM login"
+                   dfx = querydatafromdatabase(sqlx,[],["id","name","password"])
+                   namex = dfx.name.unique().tolist()
+                   optionsx = [{'label':n, 'value':n} for n in namex]
+                   return [data,columns,0,options,options5,optionsx]
            # Edit Mode
            else:
                sql2 = "SELECT name as name FROM users"
@@ -2600,7 +2616,12 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
                        df5 = querydatafromdatabase(sql5,[],["id","name"])
                        name5 = df5.name.unique().tolist()
                        options5 = [{'label':n, 'value':n} for n in name5]
-                       return [data,columns,0,options,options5]
+                       # load login table
+                       sqlx = "SELECT * FROM login"
+                       dfx = querydatafromdatabase(sqlx,[],["id","name","password"])
+                       namex = dfx.name.unique().tolist()
+                       optionsx = [{'label':n, 'value':n} for n in namex]
+                       return [data,columns,0,options,options5,optionsx]
                    else:
                        sql = "SELECT * FROM users"
                        df = querydatafromdatabase(sql,[],["id","name","date","dept","type","login"])
@@ -2613,7 +2634,12 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
                        df5 = querydatafromdatabase(sql5,[],["id","name"])
                        name5 = df5.name.unique().tolist()
                        options5 = [{'label':n, 'value':n} for n in name5]
-                       return [data,columns,0,options,options5]
+                       # load login table
+                       sqlx = "SELECT * FROM login"
+                       dfx = querydatafromdatabase(sqlx,[],["id","name","password"])
+                       namex = dfx.name.unique().tolist()
+                       optionsx = [{'label':n, 'value':n} for n in namex]
+                       return [data,columns,0,options,options5,optionsx]
                        return print("There is already an entry with the same name.")
                else:
                    input_id=data[selected_rows[0]]['id']
@@ -2630,7 +2656,12 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
                    df5 = querydatafromdatabase(sql5,[],["id","name"])
                    name5 = df5.name.unique().tolist()
                    options5 = [{'label':n, 'value':n} for n in name5]
-                   return [data,columns,0,options,options5]
+                   # load login table
+                   sqlx = "SELECT * FROM login"
+                   dfx = querydatafromdatabase(sqlx,[],["id","name","password"])
+                   namex = dfx.name.unique().tolist()
+                   optionsx = [{'label':n, 'value':n} for n in namex]
+                   return [data,columns,0,options,options5,optionsx]
        elif eventid =="user-delete-button":
            if 1 not in user_mode:
                sql = "SELECT * FROM users"
@@ -2644,7 +2675,12 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
                df5 = querydatafromdatabase(sql5,[],["id","name"])
                name5 = df5.name.unique().tolist()
                options5 = [{'label':n, 'value':n} for n in name5]
-               return [data,columns,0,options,options5]
+               # load login table
+               sqlx = "SELECT * FROM login"
+               dfx = querydatafromdatabase(sqlx,[],["id","name","password"])
+               namex = dfx.name.unique().tolist()
+               optionsx = [{'label':n, 'value':n} for n in namex]
+               return [data,columns,0,options,options5,optionsx]
                return print("Please enable 'Edit Mode' in order to delete.")
            else:
                input_id=data[selected_rows[0]]['id']
@@ -2661,7 +2697,12 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
                df5 = querydatafromdatabase(sql5,[],["id","name"])
                name5 = df5.name.unique().tolist()
                options5 = [{'label':n, 'value':n} for n in name5]
-               return [data,columns,0,options,options5]        
+               # load login table
+               sqlx = "SELECT * FROM login"
+               dfx = querydatafromdatabase(sqlx,[],["id","name","password"])
+               namex = dfx.name.unique().tolist()
+               optionsx = [{'label':n, 'value':n} for n in namex]
+               return [data,columns,0,options,options5,optionsx]        
        elif eventid =="user-mode":
            sql = "SELECT * FROM users"
            df = querydatafromdatabase(sql,[],["id","name","date","dept","type","login"])
@@ -2674,7 +2715,12 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
            df5 = querydatafromdatabase(sql5,[],["id","name"])
            name5 = df5.name.unique().tolist()
            options5 = [{'label':n, 'value':n} for n in name5]
-           return [data,columns,2,options,options5]
+           # load login table
+           sqlx = "SELECT * FROM login"
+           dfx = querydatafromdatabase(sqlx,[],["id","name","password"])
+           namex = dfx.name.unique().tolist()
+           optionsx = [{'label':n, 'value':n} for n in namex]
+           return [data,columns,2,options,options5,optionsx]
 
    else:
            sql = "SELECT * FROM users"
@@ -2688,7 +2734,12 @@ def user_output(user_submit_button,user_save_button,user_delete_button,
            df5 = querydatafromdatabase(sql5,[],["id","name"])
            name5 = df5.name.unique().tolist()
            options5 = [{'label':n, 'value':n} for n in name5]
-           return [data,columns,2,options,options5]
+           # load login table
+           sqlx = "SELECT * FROM login"
+           dfx = querydatafromdatabase(sqlx,[],["id","name","password"])
+           namex = dfx.name.unique().tolist()
+           optionsx = [{'label':n, 'value':n} for n in namex]
+           return [data,columns,2,options,options5,optionsx]
 
 
 @app.callback(
