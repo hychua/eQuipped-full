@@ -2875,11 +2875,15 @@ def user2_edit(user_mode):
     df2 = querydatafromdatabase(sql2,[],["type","login"])
     df_admin = df2[df2['type']=="Admin"]
     admin = df_admin.login.tolist()
-    if username in admin:
-        if 1 not in user_mode:
+    ctx = dash.callback_context
+    if ctx.triggered:
+        eventid = ctx.triggered[0]['prop_id'].split('.')[0]
+        if username not in admin:
+            if eventid == "user-mode":
+                if 1 in user_mode:
+                    return [{'display':'none'},{'display':'none'}]
+        else:
             return [{'width':200},{'font-weight':'bold','font-size':18}]
-    else:
-        return [{'display':'none'},{'display':'none'}]
 
 # equipment callbacks
 @app.callback(
